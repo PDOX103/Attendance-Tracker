@@ -4,10 +4,10 @@
 
 | **ID**       | **Name**                 | **Email**                          | **Role**            |
 |--------------|--------------------------|------------------------------------|---------------------|
-| 20220104103  | Md. Fahmidul Karim Rafi  | fahmidulkarimrafi@gmail.com        | Frontend            |
+| 20220104103  | Md. Fahmidul Karim Rafi  | fahmidulkarimrafi@gmail.com        | Lead & Frontend     |
 | 20220104085  | Priyom Parial            | priyomparial17@gmail.com           | Backend             |
-| 20220104097  | Safuan Hasan Tasfee      | tasfim3@gmail.com                  | Lead                |
-| 20220104083  | Sayek Al Sami            | sayekalsami@gmail.com              | Lead                |
+| 20220104097  | Safuan Hasan Tasfee      | tasfim3@gmail.com                  | Frontend & Backend  |
+| 20220104083  | Sayek Al Sami            | sayekalsami@gmail.com              | Frontend & Backend  |
 
 
 ## Project Overview
