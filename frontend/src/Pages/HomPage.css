@@ -12,3 +12,10 @@
     object-fit: cover;
   }
   
+.background-image2 {
+    position: absolute;
+    top: 1;
+    left: 0;
+    z-index: -1;
+    overflow: hidden; 
+  }
