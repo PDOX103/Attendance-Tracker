@@ -1,11 +1,51 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
+import { Link, NavLink } from "react-router-dom";
 
 const SignIn = () => {
   return (
-    <div>
-      Signed in
-    </div>
-  )
-}
+    <>
+      <div className="background-image">
+        <img src="/images/Signin_back.png" alt="Background" />
+      </div>
+      <section>
+        <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
+      </section>
 
-export default SignIn
+      <section>
+        <div className="container grid-col-1 md:grid-cols-2 min-h-[650px]">
+          <div className="absolute left-60">
+            <motion.img
+              src="/images/4957136.jpg"
+              alt="Sign In Illustration"
+              className="w-[500px] h-[500px] object-cover shadow-lg"
+              initial={{ opacity: 0, x: -100, rotate: 0 }}
+              animate={{ opacity: 1, x: 0, rotate: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            />
+          </div>
+
+          <div className="absolute right-80 top-60 ">
+            <div className="hover:!scale-110 duration-300">
+              <motion.img
+                src="/images/google-button.png"
+                className="w-[253px] object-cover"
+                initial={{ opacity: 0, x: 0, rotate: 0 }}
+                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                viewport={{ once: true, amount: 0.5 }}
+              />
+            </div>
+
+            <div className="flex justify-center gap-3">
+              <h1 className="font-roboto text-sm">Don't have an account?</h1>
+              <NavLink to ="/signup" className="font-roboto font-semibold text-sm text-BLUE2">Sign Up</NavLink>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default SignIn;

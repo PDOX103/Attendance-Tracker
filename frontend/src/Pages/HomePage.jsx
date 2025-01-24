@@ -60,9 +60,11 @@ const HomePage = () => {
                 initial="hidden"
                 animate="visible"
               >
-                <button className="hover:!scale-110 duration-300">
-                  <img src="/images/Get_Started_Button.png" />
-                </button>
+                <div className="flex justify-center hover:!scale-110 duration-300">
+                  <Link to="/signin">
+                    <img src="/images/Get_Started_Button.png" alt="" />
+                  </Link>
+                </div>
 
                 {/* <button className="primary-btn">Get started</button> */}
               </motion.div>
