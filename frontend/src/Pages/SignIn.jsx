@@ -48,6 +48,26 @@ const SignIn = () => {
                 Sign Up
               </NavLink>
             </div>
+
+            <section>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
+            </section>
+
+            <div className="flex justify-center gap-3">
+              <div className="hover:!scale-110 duration-300">
+                <img
+                  src="/images/Google Play Badge.png"
+                  className="w-[120px] object-cover"
+                />
+              </div>
+
+              <div className="hover:!scale-110 duration-300">
+                <img
+                  src="/images/App Store Badge.png"
+                  className="w-[120px] object-cover"
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
