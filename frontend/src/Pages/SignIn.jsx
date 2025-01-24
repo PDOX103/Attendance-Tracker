@@ -25,23 +25,30 @@ const SignIn = () => {
             />
           </div>
 
-          <div className="absolute right-80 top-60 ">
+          <motion.div
+            className="absolute right-80 top-60 "
+            initial={{ opacity: 0, x: 0, rotate: 0 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.5 }}
+          >
             <div className="hover:!scale-110 duration-300">
-              <motion.img
+              <img
                 src="/images/google-button.png"
                 className="w-[253px] object-cover"
-                initial={{ opacity: 0, x: 0, rotate: 0 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-                viewport={{ once: true, amount: 0.5 }}
               />
             </div>
 
             <div className="flex justify-center gap-3">
               <h1 className="font-roboto text-sm">Don't have an account?</h1>
-              <NavLink to ="/signup" className="font-roboto font-semibold text-sm text-BLUE2">Sign Up</NavLink>
+              <NavLink
+                to="/signup"
+                className="font-roboto font-semibold text-sm text-BLUE2"
+              >
+                Sign Up
+              </NavLink>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>
