@@ -52,7 +52,7 @@ const Navbar = () => {
                             className="inline-block py-1 px-16 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-roboto">{menu.title}</a>
                         </li>
                     ))}
-                    <button>
+                    <button className="hover:!scale-110 duration-300">
                         <img src="/images/SignIn_Button.png" alt=""/>
                     </button>
                 </ul>
