@@ -53,7 +53,7 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
               ))}
               {isSignedIn ? (
                 <button onClick={handleSignOut} className="hover:!scale-110 duration-300">
-                  Sign Out
+                  <img src ="/images/Log_out.png"/>
                 </button>
               ) : (
                 <Link to="/signin" className="hover:!scale-110 duration-300">
