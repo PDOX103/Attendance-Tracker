@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
-const SignIn = () => {
+const SignIn = ({ setIsSignedIn }) => {
+  const navigate = useNavigate();
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log("Google Sign-In successful:", credentialResponse);
+    setIsSignedIn(true); // Update the signed-in state
+    navigate("/empty"); 
+  };
+
+  const handleGoogleError = (error) => {
+    console.error("Google Sign-In failed:", error);
+  };
+
   return (
     <>
       <div className="background-image">
         <img src="/images/Signin_back.png" alt="Background" />
       </div>
-      <section>
-        <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
-      </section>
-
       <section>
         <div className="container grid-col-1 md:grid-cols-2 min-h-[650px]">
           <div className="absolute left-60">
@@ -26,16 +35,16 @@ const SignIn = () => {
           </div>
 
           <motion.div
-            className="absolute right-80 top-60 "
+            className="absolute right-80 top-60"
             initial={{ opacity: 0, x: 0, rotate: 0 }}
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: true, amount: 0.5 }}
           >
             <div className="hover:!scale-110 duration-300">
-              <img
-                src="/images/google-button.png"
-                className="w-[253px] object-cover"
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
               />
             </div>
 
@@ -48,10 +57,6 @@ const SignIn = () => {
                 Sign Up
               </NavLink>
             </div>
-
-            <section>
-              <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
-            </section>
 
             <div className="flex justify-center gap-3">
               <div className="hover:!scale-110 duration-300">

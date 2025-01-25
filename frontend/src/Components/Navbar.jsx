@@ -2,38 +2,26 @@ import React from "react";
 import { MdMenu } from "react-icons/md";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { motion } from "framer-motion";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const NavbarMenu = [
-  {
-    id: 1,
-    title: "Home",
-    link: "/",
-  },
-  {
-    id: 2,
-    title: "About",
-    link: "/about",
-  },
-  {
-    id: 3,
-    title: "Contact",
-    link: "/contact",
-  },
-  {
-    id: 4,
-    title: "Pricing",
-    link: "/pricing",
-  },
-  {
-    id: 5,
-    title: "FAQ",
-    link: "/faq",
-  },
+  { id: 1, title: "Home", link: "/" },
+  { id: 2, title: "About", link: "/about" },
+  { id: 3, title: "Contact", link: "/contact" },
+  { id: 4, title: "Pricing", link: "/pricing" },
+  { id: 5, title: "FAQ", link: "/faq" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ isSignedIn, setIsSignedIn }) => {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+    // Additional sign-out logic (e.g., revoke tokens) can go here
+    navigate("/"); 
+  };
+
   return (
     <>
       <nav>
@@ -58,17 +46,20 @@ const Navbar = () => {
             <ul className="flex items-center gap-6">
               {NavbarMenu.map((menu) => (
                 <li key={menu.id}>
-                  <a
-                    href={menu.link}
-                    className="inline-block py-1 px-16 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-roboto"
-                  >
+                  <NavLink to={menu.link} className="inline-block py-1 px-16 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-roboto">
                     {menu.title}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
-              <Link to="/signin" className="hover:!scale-110 duration-300">
-                <img src="/images/SignIn_Button.png" alt="" />
-              </Link>
+              {isSignedIn ? (
+                <button onClick={handleSignOut} className="hover:!scale-110 duration-300">
+                  Sign Out
+                </button>
+              ) : (
+                <Link to="/signin" className="hover:!scale-110 duration-300">
+                  <img src="/images/SignIn_Button.png" alt="" />
+                </Link>
+              )}
             </ul>
           </div>
           {/*Mobile responsive section*/}
