@@ -17,7 +17,7 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="flex flex-col items-center text-center shadow-lg p-8 rounded-lg bg-gray-50">
             <p className="text-xl font-bold text-gray-700 mb-2">Developer 1</p>
-            <img src="/images/dev1.jpg" alt="Developer 1" className="w-40 h-40 rounded-full mb-6 shadow-md" />
+            <img src="/images/rafi.jpg" alt="Developer 1" className="w-40 h-40 rounded-full mb-6 shadow-md" />
             <p className="text-2xl font-bold text-gray-900">Fahmidul Karim</p>
             <p className="text-lg text-gray-600">Ahsanullah University of Science and Technology</p>
           </div>
