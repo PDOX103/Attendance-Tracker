@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <>
       <div className="background-image">
-        <img src="/images/Background1.png" alt="Background" />
+      <img src="/images/Background1.png" alt="Background" />
       </div>
 
       <section>
