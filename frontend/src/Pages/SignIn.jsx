@@ -48,6 +48,10 @@ const SignIn = ({ setIsSignedIn }) => {
               />
             </div>
 
+            <section>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
+            </section>
+
             <div className="flex justify-center gap-3">
               <h1 className="font-roboto text-sm">Don't have an account?</h1>
               <NavLink
