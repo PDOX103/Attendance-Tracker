@@ -41,7 +41,7 @@ const SignIn = ({ setIsSignedIn }) => {
             transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            <div className="hover:!scale-110 duration-300">
+            <div className="hover:!scale-110 duration-300 shadow-lg">
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={handleGoogleError}
@@ -57,6 +57,10 @@ const SignIn = ({ setIsSignedIn }) => {
                 Sign Up
               </NavLink>
             </div>
+
+            <section>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
+            </section>
 
             <div className="flex justify-center gap-3">
               <div className="hover:!scale-110 duration-300">
