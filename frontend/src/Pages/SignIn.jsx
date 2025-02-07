@@ -6,11 +6,34 @@ import { GoogleLogin } from "@react-oauth/google";
 const SignIn = ({ setIsSignedIn }) => {
   const navigate = useNavigate();
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log("Google Sign-In successful:", credentialResponse);
-    setIsSignedIn(true); // Update the signed-in state
-    navigate("/empty"); 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          credential: credentialResponse.credential, // Google Token
+        }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        console.log("User Data:", data.user);
+        localStorage.setItem("token", data.token);
+        setIsSignedIn(true);
+        navigate("/empty");
+        console.log("Google Sign-In successful:", credentialResponse);
+
+      } else {
+        console.error("Error:", data);
+      }
+    } catch (error) {
+      console.error("Google Sign-In failed:", error);
+    }
   };
+  
 
   const handleGoogleError = (error) => {
     console.error("Google Sign-In failed:", error);
