@@ -16,6 +16,8 @@ import Student_Dashboard from "./Student_Portal_Pages/Student_Dashboard";
 import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
 import EmptyPage from "./Pages/EmptyPage"; // Create this empty page component
 
+import Users from "../Users";
+
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com"; 
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -23,6 +25,9 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <main className="overflow-hidden">
+        {/* <h2>React app</h2>
+        <h2>Users</h2>
+        <Users/> */}
         <Navbar isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
         <Routes>
           <Route path="/" element={<HomePage />} />
