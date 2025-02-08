@@ -13,7 +13,7 @@
 ## Project Overview
 
 ### Project Title
-**CourseMate**
+**Attendance Tracker**
 
 ### Objective
 Attendance Tracker is a digital platform for efficient attendance management, offering Google SSO, real-time tracking, session creation, and secure access, enhancing convenience for students, instructors, and administrators.
