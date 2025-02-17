@@ -22,8 +22,19 @@ const SignIn = ({ setIsSignedIn }) => {
       if (response.ok) {
         console.log("User Data:", data.user);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role",data.role);
         setIsSignedIn(true);
-        navigate("/empty");
+
+        if(data.role === "admin"){
+          navigate("/admin-dashboard");
+        }
+        else if(data.role === "instructor"){
+          navigate("/instructor-dashboard");
+        }
+        else{
+          navigate("/empty");
+        }
+        //navigate("/empty");
         console.log("Google Sign-In successful:", credentialResponse);
 
       } else {

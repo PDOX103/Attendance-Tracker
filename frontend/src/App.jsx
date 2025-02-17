@@ -13,10 +13,12 @@ import SignUp from "./Pages/SignUp";
 import SignUp_Student from "./Pages/SignUp_Student";
 import SignUp_Instructor from "./Pages/SignUp_Instructor";
 import Student_Dashboard from "./Student_Portal_Pages/Student_Dashboard";
-import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
-import EmptyPage from "./Pages/EmptyPage"; // Create this empty page component
+//import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
+import EmptyPage from "./Pages/EmptyPage";
 
 import Users from "../Users";
+import AdminPage from "./Pages/AdminPage";
+import InstructorPage from "./Pages/InstructorPage";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com"; 
@@ -40,8 +42,13 @@ const App = () => {
           <Route path="/signup-student" element={<SignUp_Student />} />
           <Route path="/signup-instructor" element={<SignUp_Instructor />} />
           <Route path="/student-dashboard" element={<Student_Dashboard />} />
-          <Route path="/instructor-dashboard" element={<Instructor_Dashboard />} />
-          <Route path="/empty" element={<EmptyPage />} /> {/* Empty Page Route */}
+          
+          <Route path="/empty" element={<EmptyPage />} /> 
+          <Route path="/admin-dashboard" element={<AdminPage />} />
+          <Route path="/instructor-dashboard" element={<InstructorPage />} />
+
+
+
         </Routes>
         <Footer />
       </main>

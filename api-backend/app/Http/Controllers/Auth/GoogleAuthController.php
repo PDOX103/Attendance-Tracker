@@ -29,7 +29,15 @@ class GoogleAuthController extends Controller
         return response()->json(['error' => 'Invalid Google Token'], 401);
     }
 
-    // Handle user creation or update
+    //checking if the user exists for role checking
+    $user = User::where('email',$payload['email'])->first();
+    if ($user) {
+        $role = $user->role;
+    } 
+    else{
+        $role= 'student';
+    }
+
     $user = User::updateOrCreate(
         ['email' => $payload['email']],
         [
@@ -37,6 +45,7 @@ class GoogleAuthController extends Controller
             'google_id' => $payload['sub'],
             'password' => Hash::make(uniqid()), // Dummy password as it's not needed for Google SSO
             'avatar' => $payload['picture'] ?? null,
+            'role' =>$role,
         ]
     );
 
@@ -46,6 +55,8 @@ class GoogleAuthController extends Controller
     return response()->json([
         'user' => $user,
         'token' => $token,
+        'role' => $role,
+        
     ]);
 }
 
