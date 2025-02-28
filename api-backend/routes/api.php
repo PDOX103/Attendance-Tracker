@@ -28,6 +28,8 @@ Route::get('/users', function () {
 });*/
 
 Route::post('/auth/google',[GoogleAuthController::class, 'handleGoogleCallback']);
+Route::get('/users', [GoogleAuthController::class, 'getAllUsers']);
+Route::get('/users/{id}', [GoogleAuthController::class, 'getUserDetails']);
 
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/courses', [CourseController::class, 'index']);

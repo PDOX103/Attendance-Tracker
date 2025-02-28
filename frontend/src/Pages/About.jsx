@@ -40,32 +40,38 @@ const About = () => {
             Meet Our Developers
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {["rafi.jpg", "dev2.jpg", "safuan.jpg", "Piyal.jpg"].map((img, index) => (
-              <motion.div
-                key={index}
-                variants={FadeLeft(1.5 + index * 0.3)}
-                initial="hidden"
-                animate="visible"
-                className="flex flex-col items-center text-center shadow-lg p-8 rounded-lg bg-gray-50"
-              >
-                <p className="text-xl font-bold text-gray-700 mb-2">
-                  Developer {index + 1}
-                </p>
-                <img
-                  src={`/images/${img}`}
-                  alt={`Developer ${index + 1}`}
-                  className="w-40 h-40 rounded-full mb-6 shadow-md"
-                />
-                <p className="text-2xl font-bold text-gray-900">
-                  {index === 0 ? "Fahmidul Karim" :
-                   index === 1 ? "Priyom Parial" :
-                   index === 2 ? "Safuan Hasan" : "Sayek AL Sami"}
-                </p>
-                <p className="text-lg text-gray-600">
-                  Ahsanullah University of Science and Technology
-                </p>
-              </motion.div>
-            ))}
+            {["rafi.jpg", "dev2.jpg", "safuan.jpg", "Piyal.jpg"].map(
+              (img, index) => (
+                <motion.div
+                  key={index}
+                  variants={FadeLeft(1.5 + index * 0.3)}
+                  initial="hidden"
+                  animate="visible"
+                  className="flex flex-col items-center text-center shadow-lg p-8 rounded-lg bg-gray-50"
+                >
+                  <p className="text-xl font-bold text-gray-700 mb-2">
+                    Developer {index + 1}
+                  </p>
+                  <img
+                    src={`/images/${img}`}
+                    alt={`Developer ${index + 1}`}
+                    className="w-40 h-40 rounded-full mb-6 shadow-md"
+                  />
+                  <p className="text-2xl font-bold text-gray-900">
+                    {index === 0
+                      ? "Fahmidul Karim"
+                      : index === 1
+                      ? "Priyom Parial"
+                      : index === 2
+                      ? "Safuan Hasan"
+                      : "Sayek AL Sami"}
+                  </p>
+                  <p className="text-lg text-gray-600">
+                    Ahsanullah University of Science and Technology
+                  </p>
+                </motion.div>
+              )
+            )}
           </div>
         </div>
       </div>
