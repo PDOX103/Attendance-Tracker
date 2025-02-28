@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;    
@@ -27,3 +28,6 @@ Route::get('/users', function () {
 });*/
 
 Route::post('/auth/google',[GoogleAuthController::class, 'handleGoogleCallback']);
+
+Route::post('/courses', [CourseController::class, 'store']);
+Route::get('/courses', [CourseController::class, 'index']);

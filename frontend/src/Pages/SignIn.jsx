@@ -7,6 +7,7 @@ const SignIn = ({ setIsSignedIn }) => {
   const navigate = useNavigate();
 
   const handleGoogleSuccess = async (credentialResponse) => {
+    
     try {
       const response = await fetch("http://127.0.0.1:8000/api/auth/google", {
         method: "POST",
