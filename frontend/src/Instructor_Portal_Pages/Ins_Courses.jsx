@@ -5,13 +5,17 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Ins_Courses = () => {
-  const [course, setCourse] = useState();
+  const [course, setCourse] = useState([]);
 
   const fetchCourse = async () => {
-    const res = await fetch("http://localhost:8000/api/courses");
-    const result = await res.json();
-    setCourse(result.data);
-    console.log(result);
+    try {
+      const res = await fetch("http://localhost:8000/api/courses");
+      const result = await res.json();
+      const activeCourses = result.data.filter(c => c.status === "active");
+      setCourse(activeCourses);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
   };
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const Ins_Courses = () => {
         >
           <h1 className="text-black font-roboto text-lg font-bold">Courses</h1>
           <Link to="/create-course" className="hover:!scale-110 duration-300">
-            <img src="/images/create 1.png" alt="" />
+            <img src="/images/create 1.png" alt="Create Course" />
           </Link>
         </motion.div>
         <section>
@@ -43,10 +47,13 @@ const Ins_Courses = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          {course &&
-            course.map((c) => {
-              return <Courses key={c.course_no} course_no={c.course_no} course_title={c.course_title} />;
-            })}
+          {course.length > 0 ? (
+            course.map((c) => (
+              <Courses key={c.course_no} course_no={c.course_no} course_title={c.course_title} />
+            ))
+          ) : (
+            <p className="text-gray-500">No active courses available.</p>
+          )}
         </motion.div>
       </div>
     </div>
