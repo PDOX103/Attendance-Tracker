@@ -18,7 +18,6 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
 
   const handleSignOut = () => {
     setIsSignedIn(false);
-    // Additional sign-out logic (e.g., revoke tokens) can go here
     navigate("/"); 
   };
 

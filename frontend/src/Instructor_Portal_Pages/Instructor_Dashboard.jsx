@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
+import Ins_Sidebar from "./Ins_Sidebar";
 
 const Instructor_Dashboard = () => {
   return (
-    <div>
-      Instructor_Dashboard
-    </div>
-  )
-}
+    <>
+      <Ins_Sidebar />
 
-export default Instructor_Dashboard
+      
+    </>
+  );
+};
+
+export default Instructor_Dashboard;

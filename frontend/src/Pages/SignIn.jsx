@@ -22,8 +22,19 @@ const SignIn = ({ setIsSignedIn }) => {
       if (response.ok) {
         console.log("User Data:", data.user);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("role",data.role);
         setIsSignedIn(true);
-        navigate("/empty");
+
+        if(data.role === "admin"){
+          navigate("/admin-dashboard");
+        }
+        else if(data.role === "instructor"){
+          navigate("/instructor-dashboard");
+        }
+        else{
+          navigate("/student-dashboard");
+        }
+        //navigate("/empty");
         console.log("Google Sign-In successful:", credentialResponse);
 
       } else {
@@ -75,7 +86,7 @@ const SignIn = ({ setIsSignedIn }) => {
               <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
             </section>
 
-            <div className="flex justify-center gap-3">
+            {/* <div className="flex justify-center gap-3">
               <h1 className="font-roboto text-sm">Don't have an account?</h1>
               <NavLink
                 to="/signup"
@@ -83,10 +94,10 @@ const SignIn = ({ setIsSignedIn }) => {
               >
                 Sign Up
               </NavLink>
-            </div>
+            </div> */}
 
             <section>
-              <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
             </section>
 
             <div className="flex justify-center gap-3">

@@ -13,10 +13,15 @@ import SignUp from "./Pages/SignUp";
 import SignUp_Student from "./Pages/SignUp_Student";
 import SignUp_Instructor from "./Pages/SignUp_Instructor";
 import Student_Dashboard from "./Student_Portal_Pages/Student_Dashboard";
-import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
-import EmptyPage from "./Pages/EmptyPage"; // Create this empty page component
+//import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
+import EmptyPage from "./Pages/EmptyPage";
 
 import Users from "../Users";
+import AdminPage from "./Pages/AdminPage";
+import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
+import Ins_Courses from "./Instructor_Portal_Pages/Ins_Courses";
+import Ins_Profile from "./Instructor_Portal_Pages/Ins_Profile";
+import Create_Course from "./Instructor_Portal_Pages/Create_Course";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com"; 
@@ -40,8 +45,17 @@ const App = () => {
           <Route path="/signup-student" element={<SignUp_Student />} />
           <Route path="/signup-instructor" element={<SignUp_Instructor />} />
           <Route path="/student-dashboard" element={<Student_Dashboard />} />
+          
+          <Route path="/empty" element={<EmptyPage />} /> 
+          <Route path="/admin-dashboard" element={<AdminPage />} />
           <Route path="/instructor-dashboard" element={<Instructor_Dashboard />} />
-          <Route path="/empty" element={<EmptyPage />} /> {/* Empty Page Route */}
+          <Route path="/instructor-courses" element={<Ins_Courses />} />
+          <Route path="/instructor-profile" element={<Ins_Profile />} />
+          <Route path="/create-course" element={<Create_Course />} />
+          
+
+
+
         </Routes>
         <Footer />
       </main>
