@@ -41,7 +41,7 @@ const Create_Course = () => {
     <div className="flex h-screen">
       <Ins_Sidebar />
       <div className="flex-auto flex justify-center items-center p-6">
-        <div className="w-full max-w-2xl bg-BLUE border border-gray-300 p-6 rounded-lg shadow-lg mt-[-400px]">
+        <div className="w-full max-w-2xl bg-BLUE p-6 rounded-lg shadow-lg shadow-black mt-[-400px]">
           <h2 className="text-lg font-semibold mb-4 text-center font-roboto">
             Create Course
           </h2>

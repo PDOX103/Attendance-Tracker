@@ -24,6 +24,11 @@ const SignIn = ({ setIsSignedIn }) => {
         console.log("User Data:", data.user);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role",data.role);
+        localStorage.setItem("userId", data.user.id);
+
+        console.log(localStorage.getItem("token"));
+
+
         setIsSignedIn(true);
 
         if(data.role === "admin"){
@@ -35,7 +40,6 @@ const SignIn = ({ setIsSignedIn }) => {
         else{
           navigate("/student-dashboard");
         }
-        //navigate("/empty");
         console.log("Google Sign-In successful:", credentialResponse);
 
       } else {

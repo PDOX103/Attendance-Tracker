@@ -56,8 +56,9 @@ const App = () => {
             element={<Instructor_Dashboard />}
           />
           <Route path="/instructor-courses" element={<Ins_Courses />} />
-          <Route path="/instructor-profile" element={<Ins_Profile />} />
+          <Route path="/instructor/:id" element={<Ins_Profile />} />
           <Route path="/create-course" element={<Create_Course />} />
+
         </Routes>
         <ToastContainer />
         <Footer />
