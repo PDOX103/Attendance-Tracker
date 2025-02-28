@@ -18,7 +18,10 @@ import EmptyPage from "./Pages/EmptyPage";
 
 import Users from "../Users";
 import AdminPage from "./Pages/AdminPage";
-import InstructorPage from "./Pages/InstructorPage";
+import Instructor_Dashboard from "./Instructor_Portal_Pages/Instructor_Dashboard";
+import Ins_Courses from "./Instructor_Portal_Pages/Ins_Courses";
+import Ins_Profile from "./Instructor_Portal_Pages/Ins_Profile";
+import Create_Course from "./Instructor_Portal_Pages/Create_Course";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com"; 
@@ -45,7 +48,11 @@ const App = () => {
           
           <Route path="/empty" element={<EmptyPage />} /> 
           <Route path="/admin-dashboard" element={<AdminPage />} />
-          <Route path="/instructor-dashboard" element={<InstructorPage />} />
+          <Route path="/instructor-dashboard" element={<Instructor_Dashboard />} />
+          <Route path="/instructor-courses" element={<Ins_Courses />} />
+          <Route path="/instructor-profile" element={<Ins_Profile />} />
+          <Route path="/create-course" element={<Create_Course />} />
+          
 
 
 

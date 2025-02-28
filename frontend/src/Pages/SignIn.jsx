@@ -32,7 +32,7 @@ const SignIn = ({ setIsSignedIn }) => {
           navigate("/instructor-dashboard");
         }
         else{
-          navigate("/empty");
+          navigate("/student-dashboard");
         }
         //navigate("/empty");
         console.log("Google Sign-In successful:", credentialResponse);
@@ -86,7 +86,7 @@ const SignIn = ({ setIsSignedIn }) => {
               <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
             </section>
 
-            <div className="flex justify-center gap-3">
+            {/* <div className="flex justify-center gap-3">
               <h1 className="font-roboto text-sm">Don't have an account?</h1>
               <NavLink
                 to="/signup"
@@ -94,10 +94,10 @@ const SignIn = ({ setIsSignedIn }) => {
               >
                 Sign Up
               </NavLink>
-            </div>
+            </div> */}
 
             <section>
-              <div className="container grid-col-1 md:grid-cols-2 min-h-[50px]"></div>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
             </section>
 
             <div className="flex justify-center gap-3">
