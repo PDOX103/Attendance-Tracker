@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Ins_Sidebar from "./Ins_Sidebar";
 import Courses from "./Courses";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Ins_Courses = () => {
+  const [course, setCourse] = useState();
+
+  const fetchCourse = async () => {
+    const res = await fetch("http://localhost:8000/api/courses");
+    const result = await res.json();
+    setCourse(result.data);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    fetchCourse();
+  }, []);
+
   return (
     <div className="flex">
       <Ins_Sidebar />
@@ -18,11 +31,7 @@ const Ins_Courses = () => {
         >
           <h1 className="text-black font-roboto text-lg font-bold">Courses</h1>
           <Link to="/create-course" className="hover:!scale-110 duration-300">
-            <img
-              
-              src="/images/create 1.png"
-              alt=""
-            />
+            <img src="/images/create 1.png" alt="" />
           </Link>
         </motion.div>
         <section>
@@ -34,13 +43,10 @@ const Ins_Courses = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <Courses />
-          <Courses />
-          <Courses />
-          <Courses />
-          <Courses />
-          <Courses />
-          <Courses />
+          {course &&
+            course.map((c) => {
+              return <Courses key={c.course_no} course_no={c.course_no} course_title={c.course_title} />;
+            })}
         </motion.div>
       </div>
     </div>
