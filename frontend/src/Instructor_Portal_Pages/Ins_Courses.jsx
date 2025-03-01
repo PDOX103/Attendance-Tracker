@@ -6,10 +6,17 @@ import { Link } from "react-router-dom";
 
 const Ins_Courses = () => {
   const [course, setCourse] = useState([]);
+  const instructorId = localStorage.getItem("userId");
 
   const fetchCourse = async () => {
+    if (!instructorId) {
+      console.error("Instructor ID not found!");
+      return;
+    }
+
+
     try {
-      const res = await fetch("http://localhost:8000/api/courses");
+      const res = await fetch(`http://localhost:8000/api/courses/instructor/${instructorId}`);
       const result = await res.json();
       const activeCourses = result.data.filter(c => c.status === "active");
       setCourse(activeCourses);

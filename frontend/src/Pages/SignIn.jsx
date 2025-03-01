@@ -27,7 +27,7 @@ const SignIn = ({ setIsSignedIn }) => {
         localStorage.setItem("userId", data.user.id);
 
         console.log(localStorage.getItem("token"));
-
+        console.log(localStorage.getItem("userId"));
 
         setIsSignedIn(true);
 

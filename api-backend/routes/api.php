@@ -32,4 +32,4 @@ Route::get('/users', [GoogleAuthController::class, 'getAllUsers']);
 Route::get('/users/{id}', [GoogleAuthController::class, 'getUserDetails']);
 
 Route::post('/courses', [CourseController::class, 'store']);
-Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByInstructor']);

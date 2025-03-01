@@ -14,7 +14,9 @@ const Create_Course = () => {
   } = useForm();
 
   const formSubmit = async (data) => {
-    const newData = { ...data, status: "active" };
+    const userId = localStorage.getItem("userId");
+    
+    const newData = { ...data, instructor_id: userId, status: "active" };
 
     const res = await fetch("http://localhost:8000/api/courses", {
       method: "POST",

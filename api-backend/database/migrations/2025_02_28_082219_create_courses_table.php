@@ -15,9 +15,11 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('course_no');  
-            $table->string('course_title'); 
+            $table->string('course_no');
+            $table->string('course_title');
             $table->enum('status', ['active', 'ended'])->default('active');
+            $table->unsignedBigInteger('instructor_id')->nullable();
+            $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
