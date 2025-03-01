@@ -1,10 +1,42 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FadeLeft } from "../Utility/Animation";
+import Swal from 'sweetalert2'
 
 const Contact = () => {
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "14300210-1835-4289-8536-f3590229b59a");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: json
+    }).then((res) => res.json());
+
+    if (res.success) {
+      Swal.fire({
+        title: "Success!",
+        text: "Message Sent Successfully!",
+        icon: "success"
+      });
+    }
+  };
+
+
+
   return (
-    <>
+   <>
+    
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <img src="/images/Contact_back.png" alt="Background" className="w-full h-full object-cover" />
@@ -49,14 +81,17 @@ const Contact = () => {
           </motion.div>
 
           {/* Right Side - Contact Form */}
+          
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="md:w-1/2 bg-[#E8F0FE] p-6 rounded-lg"
           >
+            
             <h2 className="text-2xl font-bold text-gray-700 mb-4">Send Us a Message</h2>
             <motion.form
+            onSubmit={onSubmit}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -67,7 +102,7 @@ const Contact = () => {
                 <input
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-                  placeholder="Enter your name"
+                  placeholder="Enter your name" name='name'
                   required
                 />
               </div>
@@ -76,13 +111,13 @@ const Contact = () => {
                 <input
                   type="email"
                   className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email" name='email'
                   required
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-medium">Message</label>
-                <textarea
+                <textarea name="message"
                   rows="4"
                   className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
                   placeholder="Write your message"
@@ -98,8 +133,12 @@ const Contact = () => {
                 Send Message
               </motion.button>
             </motion.form>
+            
           </motion.div>
+          
+          
         </motion.div>
+        
       </div>
     </>
   );
