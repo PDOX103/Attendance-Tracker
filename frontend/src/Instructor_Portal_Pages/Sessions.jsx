@@ -68,7 +68,7 @@ const Sessions = () => {
         <div className="mt-6 bg-BLUE shadow-lg rounded-lg p-4">
           <table className="w-full border-collapse border border-gray-300">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-BLUE2">
                 <th className="border font-roboto border-black px-4 py-2">
                   Session ID
                 </th>
@@ -111,7 +111,7 @@ const Sessions = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center text-gray-500 py-4">
+                  <td colSpan="5" className="text-center font-roboto text-black py-4">
                     No sessions found.
                   </td>
                 </tr>
