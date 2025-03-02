@@ -36,6 +36,7 @@ Route::get('/users/{id}', [GoogleAuthController::class, 'getUserDetails']);
 
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByInstructor']);
+Route::post('/courses/join', [CourseController::class, 'joinCourse']);
 
 
 Route::post('/sessions', [SessionController::class, 'createSession']);

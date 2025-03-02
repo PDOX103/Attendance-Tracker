@@ -84,12 +84,7 @@ const Create_Course = () => {
               </div>
             </div>
           </form>
-          {uniqueCode && (
-            <div className="mt-4">
-              <p className="text-center font-roboto">Unique Code: <strong>{uniqueCode}</strong></p>
-              <button onClick={clearUniqueCode} className="mt-2 text-red-500">Clear Unique Code</button>
-            </div>
-          )}
+          
         </div>
       </div>
     </div>
