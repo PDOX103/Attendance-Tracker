@@ -22,6 +22,7 @@ import Create_Course from "./Instructor_Portal_Pages/Create_Course";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sessions from "./Instructor_Portal_Pages/Sessions";
+import Create_Session from "./Instructor_Portal_Pages/Create_Session";
 
 const App = () => {
   const clientId =
@@ -59,7 +60,8 @@ const App = () => {
           <Route path="/instructor-courses" element={<Ins_Courses />} />
           <Route path="/instructor/:id" element={<Ins_Profile />} />
           <Route path="/create-course" element={<Create_Course />} />
-          <Route path="/instructor-sessions" element={<Sessions />} />
+          <Route path="/instructor-courses/:id" element={<Sessions />} />
+          <Route path="/create-session/:id" element={<Create_Session />} />
 
         </Routes>
         <ToastContainer />
