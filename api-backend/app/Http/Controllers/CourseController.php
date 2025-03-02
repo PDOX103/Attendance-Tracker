@@ -4,71 +4,56 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Services\CourseService;
 
 class CourseController extends Controller
 {
+    protected $courseService;
+
+    public function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
 
     public function getCoursesByInstructor($id)
     {
-        $courses = Course::where('instructor_id', $id)->get();
+        $courses = $this->courseService->getCoursesByInstructor($id);
 
         return response()->json([
             'status' => true,
-            'data' => $courses
+            'data' => $courses,
         ]);
     }
 
-
-    //show a course
-    public function show()
+    // Showing course
+    public function show($id)
     {
+        $course = Course::find($id);
 
+        if (!$course) {
+            return response()->json(['status' => false, 'message' => 'Course not found'], 404);
+        }
+
+        return response()->json(['status' => true, 'data' => $course]);
     }
-    //insert course
+
+    // Inserting course
     public function store(Request $request)
     {
+        $result = $this->courseService->store($request->only(['course_no', 'course_title', 'status', 'instructor_id']));
 
-        $exists = Course::where('course_no', $request->course_no)->exists();
-
-        if ($exists) {
-            return response()->json(['message' => 'Course already exists'], 409);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'course_no' => 'required|min:3|unique:courses,course_no',
-            'course_title' => 'required|min:3',
-            'instructor_id' => 'required|exists:users,id',
-        ]);
-
-
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Fix the errors',
-                'errors' => $validator->errors(),
-            ]);
-        }
-
-        $course = Course::create($request->only(['course_no', 'course_title', 'status', 'instructor_id']));
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Course added successfull',
-            'data' => $course
-        ]);
+        return response()->json($result, $result['code']);
     }
-    //
-    public function update()
+
+    // Updating Course
+    public function update(Request $request, $id)
     {
-
+       
     }
 
-    //delete course
-    public function destroy()
+    // Delete course
+    public function destroy($id)
     {
-
+        
     }
-
 }
