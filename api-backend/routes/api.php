@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\AttendanceController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;    
@@ -39,3 +41,7 @@ Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByIn
 Route::post('/sessions', [SessionController::class, 'createSession']);
 Route::get('/sessions/course/{id}', [SessionController::class, 'getCoursesByCourse']);
 
+
+
+Route::post('/sessions/{sessionId}/attendance', [AttendanceController::class, 'markAttendance']);
+Route::get('/sessions/{sessionId}/attendance', [AttendanceController::class, 'getAttendanceBySession']);
