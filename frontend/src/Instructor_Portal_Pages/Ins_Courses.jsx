@@ -56,7 +56,7 @@ const Ins_Courses = () => {
         >
           {course.length > 0 ? (
             course.map((c) => (
-              <Courses key={c.course_no} id={c.id} course_no={c.course_no} course_title={c.course_title} />
+              <Courses key={c.course_no} id={c.id} course_no={c.course_no} course_title={c.course_title} unique_code={c.unique_code}/>
             ))
           ) : (
             <p className="text-gray-500">No active courses available.</p>
