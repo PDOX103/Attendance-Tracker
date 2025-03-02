@@ -14,7 +14,9 @@ const Create_Course = () => {
   } = useForm();
 
   const formSubmit = async (data) => {
-    const newData = { ...data, status: "active" };
+    const userId = localStorage.getItem("userId");
+    
+    const newData = { ...data, instructor_id: userId, status: "active" };
 
     const res = await fetch("http://localhost:8000/api/courses", {
       method: "POST",
@@ -58,12 +60,9 @@ const Create_Course = () => {
                     errors.course_no && "is-invalid"
                   }`}
                   placeholder="Enter course name"
+                  required
                 />
-                {errors.course_no && (
-                  <p className="invalid-feedback font-roboto text-primary text-sm font-semibold">
-                    Course No is required
-                  </p>
-                )}
+                
               </div>
               <div>
                 <label className="block mb-1 text-sm font-medium font-roboto">
@@ -76,16 +75,13 @@ const Create_Course = () => {
                     errors.course_title && "is-invalid"
                   }`}
                   placeholder="Enter course title"
+                  required
                 />
-                {errors.course_title && (
-                  <p className="invalid-feedback font-roboto text-primary text-sm font-semibold">
-                    Course Title is required
-                  </p>
-                )}
+                
               </div>
               <div className="flex justify-center items-center">
                 <button className="bg-[#111B47] text-white px-4 py-2 rounded-2xl text-sm hover:!scale-110 duration-300 transition w-36 shadow-black shadow-sm font-roboto">
-                  Create
+                  Create Course
                 </button>
               </div>
             </div>

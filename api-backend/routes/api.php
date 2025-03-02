@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;    
@@ -32,4 +33,9 @@ Route::get('/users', [GoogleAuthController::class, 'getAllUsers']);
 Route::get('/users/{id}', [GoogleAuthController::class, 'getUserDetails']);
 
 Route::post('/courses', [CourseController::class, 'store']);
-Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByInstructor']);
+
+
+Route::post('/sessions', [SessionController::class, 'createSession']);
+Route::get('/sessions/course/{id}', [SessionController::class, 'getCoursesByCourse']);
+

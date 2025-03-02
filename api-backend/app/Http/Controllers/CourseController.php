@@ -8,22 +8,26 @@ use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
-    //show all courses
-    public function index(){
-        $course = Course::orderBy('created_at','DESC')->get();
+
+    public function getCoursesByInstructor($id)
+    {
+        $courses = Course::where('instructor_id', $id)->get();
 
         return response()->json([
-            'status' =>true,
-            'data'=> $course
+            'status' => true,
+            'data' => $courses
         ]);
     }
 
+
     //show a course
-    public function show(){
-        
+    public function show()
+    {
+
     }
     //insert course
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $exists = Course::where('course_no', $request->course_no)->exists();
 
@@ -34,9 +38,10 @@ class CourseController extends Controller
         $validator = Validator::make($request->all(), [
             'course_no' => 'required|min:3|unique:courses,course_no',
             'course_title' => 'required|min:3',
+            'instructor_id' => 'required|exists:users,id',
         ]);
 
-        
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -45,23 +50,25 @@ class CourseController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
-        
-        $course = Course::create($request->only(['course_no', 'course_title', 'status']));
+
+        $course = Course::create($request->only(['course_no', 'course_title', 'status', 'instructor_id']));
 
         return response()->json([
             'status' => true,
-            'message'=>'Course added successfull',
+            'message' => 'Course added successfull',
             'data' => $course
         ]);
     }
     //
-    public function update(){
-        
+    public function update()
+    {
+
     }
 
     //delete course
-    public function destroy(){
-        
+    public function destroy()
+    {
+
     }
 
 }

@@ -6,10 +6,17 @@ import { Link } from "react-router-dom";
 
 const Ins_Courses = () => {
   const [course, setCourse] = useState([]);
+  const instructorId = localStorage.getItem("userId");
 
   const fetchCourse = async () => {
+    if (!instructorId) {
+      console.error("Instructor ID not found!");
+      return;
+    }
+
+
     try {
-      const res = await fetch("http://localhost:8000/api/courses");
+      const res = await fetch(`http://localhost:8000/api/courses/instructor/${instructorId}`);
       const result = await res.json();
       const activeCourses = result.data.filter(c => c.status === "active");
       setCourse(activeCourses);
@@ -49,7 +56,7 @@ const Ins_Courses = () => {
         >
           {course.length > 0 ? (
             course.map((c) => (
-              <Courses key={c.course_no} course_no={c.course_no} course_title={c.course_title} />
+              <Courses key={c.course_no} id={c.id} course_no={c.course_no} course_title={c.course_title} />
             ))
           ) : (
             <p className="text-gray-500">No active courses available.</p>
