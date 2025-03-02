@@ -1,15 +1,18 @@
 <?php
-
 namespace App\Services;
 
 use App\Models\Session;
+use Carbon\Carbon; // Ensure you have this imported
 use Illuminate\Support\Facades\Validator;
 
 class SessionService
 {
     public function getSessionsByCourse($courseId)
     {
-        return Session::where('course_id', $courseId)->get();
+        // Fetch sessions that are active (e.g., date is today or in the future)
+        return Session::where('course_id', $courseId)
+            ->where('date', '>=', Carbon::today()) // Only active sessions
+            ->get();
     }
 
     public function createSession($data)

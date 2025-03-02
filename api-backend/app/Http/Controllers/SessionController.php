@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,6 +13,7 @@ class SessionController extends Controller
         $this->sessionService = $sessionService;
     }
 
+    // Fetch active sessions for a specific course
     public function getCoursesByCourse($id)
     {
         $sessions = $this->sessionService->getSessionsByCourse($id);
