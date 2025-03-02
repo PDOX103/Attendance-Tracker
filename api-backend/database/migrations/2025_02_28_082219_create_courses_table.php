@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('instructor_id')->nullable();
             $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->string('unique_code')->unique()->nullable();
         });
     }
 
@@ -30,7 +31,9 @@ class CreateCoursesTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::dropIfExists('courses');
-    }
+{
+    Schema::table('courses', function (Blueprint $table) {
+        $table->dropColumn('unique_code');
+    });
+}
 }
