@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Ins_Sidebar from "./Ins_Sidebar";
+import Std_Sidebar from "./Std_Sidebar";
 
-const Ins_Profile = () => {
+const Std_profile = () => {
   const [user, setUser] = useState();
   const params = useParams();
 
@@ -23,7 +23,7 @@ const Ins_Profile = () => {
 
   return (
     <div className="flex min-h-screen">
-      <Ins_Sidebar />
+      <Std_Sidebar />
       <div className="flex-1 flex justify-center items-center p-6">
         {user ? (
           <div className="bg-BLUE shadow-lg shadow-black rounded-lg p-8 w-full max-w-md mt-[-400px]">
@@ -67,4 +67,4 @@ const Ins_Profile = () => {
   );
 };
 
-export default Ins_Profile;
+export default Std_profile;

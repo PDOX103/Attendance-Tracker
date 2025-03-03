@@ -19,7 +19,9 @@ const Sessions = () => {
         throw new Error(`Error fetching sessions: ${res.statusText}`);
       }
       const result = await res.json();
-      setSessions(result.data); // Assuming API response has { data: [...] }
+      // Filter only active sessions
+      const activeSessions = result.data.filter(session => session.status === "active");
+      setSessions(activeSessions);
     } catch (error) {
       console.error("Error fetching sessions:", error);
     }
@@ -112,7 +114,7 @@ const Sessions = () => {
               ) : (
                 <tr>
                   <td colSpan="5" className="text-center font-roboto text-black py-4">
-                    No sessions found.
+                    No active sessions found.
                   </td>
                 </tr>
               )}
