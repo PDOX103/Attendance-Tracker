@@ -30,4 +30,13 @@ class SessionController extends Controller
 
         return response()->json($result, $result['code']);
     }
+
+    public function updateSessionStatus($id)
+    {
+        $result = $this->sessionService->updateSessionStatus($id);
+        return response()->json($result, $result['code']);
+    }
+
+    
+
 }

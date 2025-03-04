@@ -31,16 +31,16 @@ const Join_Course = () => {
       const data = await res.json();
       
       if (res.ok) {
-        toast.success(data.message || "Course joined successfully!");
+        toast.success(data.message || "Course joined successfully!" , { position: "bottom-center", autoClose: 1000 });
         setMessage(data.message);
         setUniqueId(""); // Clear input field
         navigate("/joined-courses"); // Redirect to student dashboard
       } else {
-        toast.error(data.message || "Failed to join the course.");
+        toast.error(data.message || "Failed to join the course.", { position: "bottom-center", autoClose: 1000 });
       }
     } catch (error) {
       console.error("Error joining course:", error);
-      toast.error("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again." , { position: "bottom-center", autoClose: 1000 });
     }
   };
 
@@ -48,7 +48,7 @@ const Join_Course = () => {
     <div className="flex h-screen">
       <Std_Sidebar />
       <div className="flex-auto flex justify-center items-center p-6">
-        <div className="w-full max-w-2xl bg-BLUE p-6 rounded-lg shadow-lg shadow-black">
+        <div className="w-full max-w-2xl bg-BLUE p-6 rounded-lg shadow-lg shadow-black mt-[-400px]">
           <h2 className="text-lg font-semibold mb-4 text-center font-roboto">Join Course</h2>
           <form onSubmit={handleJoinCourse}>
             <div className="flex flex-col gap-4">

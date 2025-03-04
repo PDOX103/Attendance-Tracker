@@ -14,13 +14,26 @@ const Sessions = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/api/sessions/course/${id}`);
+      const res = await fetch(
+        `http://localhost:8000/api/sessions/course/${id}`
+      );
       if (!res.ok) {
         throw new Error(`Error fetching sessions: ${res.statusText}`);
       }
       const result = await res.json();
+
+      result.data.forEach((session) => {
+        console.log(
+          `Session ID: ${session.id}, Start Time: ${
+            session.start_time
+          }, End Time: ${session.end_time || "Ongoing"}`
+        );
+      });
+
       // Filter only active sessions
-      const activeSessions = result.data.filter(session => session.status === "active");
+      const activeSessions = result.data.filter(
+        (session) => session.status === "active"
+      );
       setSessions(activeSessions);
     } catch (error) {
       console.error("Error fetching sessions:", error);
@@ -28,22 +41,38 @@ const Sessions = () => {
   };
 
   useEffect(() => {
+    const now = new Date();
+    let hours = now.getHours() % 12 || 12; // Convert to 12-hour format, treating 0 as 12
+    let minutes = now.getMinutes().toString().padStart(2, "0");
+    let seconds = now.getSeconds().toString().padStart(2, "0");
+
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    console.log("Current Time:", formattedTime); // Logs time in HH:MM:SS (12-hour format without AM/PM)
+
     fetchSession();
-  }, [id]); // Re-fetch when the course ID changes
+  }, [id]);
 
   const handleEndSession = async (sessionId) => {
     try {
-      const res = await fetch(`http://localhost:8000/api/sessions/${sessionId}/end`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `http://localhost:8000/api/sessions/${sessionId}/status`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "ended" }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`Error ending session: ${res.statusText}`);
       }
 
-      // Remove the session from the state
-      setSessions(sessions.filter((session) => session.id !== sessionId));
+      const updatedSession = await res.json();
+
+      // Update session status in the state instead of removing it
+      setSessions((prevSessions) =>
+        prevSessions.filter((session) => session.id !== sessionId)
+      );
     } catch (error) {
       console.error("Error ending session:", error);
     }
@@ -61,7 +90,10 @@ const Sessions = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <h1 className="text-black font-roboto text-lg font-bold">Sessions</h1>
-          <Link to={`/create-session/${id}`} className="hover:!scale-110 duration-300">
+          <Link
+            to={`/create-session/${id}`}
+            className="hover:!scale-110 duration-300"
+          >
             <img src="/images/create 2.png" alt="Create Session" />
           </Link>
         </motion.div>
@@ -84,7 +116,7 @@ const Sessions = () => {
                   End Time
                 </th>
                 <th className="border font-roboto border-black px-4 py-2">
-                  Action
+                  Remove
                 </th>
               </tr>
             </thead>
@@ -113,7 +145,10 @@ const Sessions = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center font-roboto text-black py-4">
+                  <td
+                    colSpan="5"
+                    className="text-center font-roboto text-black py-4"
+                  >
                     No active sessions found.
                   </td>
                 </tr>

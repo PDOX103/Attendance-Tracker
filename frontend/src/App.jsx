@@ -26,6 +26,7 @@ import Create_Session from "./Instructor_Portal_Pages/Create_Session";
 import Joined_Courses from "./Student_Portal_Pages/Joined_Courses";
 import Std_profile from "./Student_Portal_Pages/Std_profile";
 import Join_Course from "./Student_Portal_Pages/Join_Course";
+import Joined_Sessions from "./Student_Portal_Pages/Joined_Sessions";
 
 const App = () => {
   const clientId =
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/joined-courses" element={<Joined_Courses />} />
           <Route path="/student/:id" element={<Std_profile />} />
           <Route path="/join-course" element={<Join_Course/>}/>
+          <Route path="/joined-courses/:id" element={<Joined_Sessions />} />
 
         </Routes>
         <ToastContainer />
