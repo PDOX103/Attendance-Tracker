@@ -28,7 +28,7 @@ const Std_profile = () => {
         {user ? (
           <div className="bg-BLUE shadow-lg shadow-black rounded-lg p-8 w-full max-w-md mt-[-400px]">
             <h2 className="text-2xl font-roboto font-semibold text-gray-800 text-center mb-6 ">
-              Instructor Profile
+              Student Profile
             </h2>
             <div className="space-y-4">
               <p>
@@ -43,12 +43,12 @@ const Std_profile = () => {
                 </span>{" "}
                 <span className="text-black">{user.email}</span>
               </p>
-              <p>
+              {/* <p>
                 <span className="font-roboto font-semibold text-gray-600">
                   ID:
                 </span>{" "}
                 <span className="text-black">{user.id}</span>
-              </p>
+              </p> */}
               <p>
                 <span className="font-roboto font-semibold text-gray-600">
                   Role:
@@ -59,7 +59,7 @@ const Std_profile = () => {
           </div>
         ) : (
           <div className="text-black text-lg font-medium animate-pulse mt-[-400px]">
-            Loading instructor details...
+            Loading student details...
           </div>
         )}
       </div>

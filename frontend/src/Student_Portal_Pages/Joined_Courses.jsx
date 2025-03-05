@@ -48,8 +48,9 @@ const Joined_Courses = () => {
             joinedCourses.map((course) => (
               <EnrolledCourse 
                 key={course.id} 
-                id={course.id} 
-                course_id={course.course_id} 
+                id={course.id}
+                course_id = {course.course_id}
+                course_no={course.course_no} 
                 course_title={course.course_title} 
               />
             ))

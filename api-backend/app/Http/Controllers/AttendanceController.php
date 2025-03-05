@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Enrollment;
+use App\Models\Session;
 use App\Services\AttendanceService;
 use Illuminate\Http\Request;
 
@@ -20,10 +22,17 @@ class AttendanceController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:users,id',
+            'students_id' => 'required|string|max:255', // Ensure valid student ID format
         ]);
 
-        // Find the enrollment
-        $enrollment = Enrollment::where('course_id', $sessionId)
+        // Check if session exists and is active
+        $session = Session::find($sessionId);
+        if (!$session || $session->status !== 'active') {
+            return response()->json(['status' => false, 'message' => 'Session not found or inactive'], 400);
+        }
+
+        // Check if student is enrolled in this session's course
+        $enrollment = Enrollment::where('course_id', $session->course_id)
             ->where('student_id', $request->student_id)
             ->first();
 
@@ -31,11 +40,22 @@ class AttendanceController extends Controller
             return response()->json(['status' => false, 'message' => 'Student is not enrolled in this course'], 400);
         }
 
-        // Use the enrollment ID here
+        // Check if attendance already exists
+        $existingAttendance = Attendance::where([
+            'session_id' => $sessionId,
+            'enrollment_id' => $enrollment->id,
+        ])->first();
+
+        if ($existingAttendance) {
+            return response()->json(['status' => false, 'message' => 'Attendance already marked'], 409);
+        }
+
+        // Mark attendance
         $attendance = $this->attendanceService->markAttendance(
             $sessionId,
-            $enrollment->id, // This should match the enrollment ID
-            true // Assuming present is true for marking attendance
+            $enrollment->id,
+            $request->students_id, // Pass students_id
+            true
         );
 
         return response()->json([
@@ -44,6 +64,8 @@ class AttendanceController extends Controller
             'data' => $attendance,
         ], 201);
     }
+
+
     // Get attendance by session
     public function getAttendanceBySession($sessionId)
     {

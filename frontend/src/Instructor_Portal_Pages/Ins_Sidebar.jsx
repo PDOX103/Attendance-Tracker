@@ -37,6 +37,16 @@ const Ins_Sidebar = () => {
               Courses
             </p>
           </NavLink>
+
+          <NavLink
+            className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
+            to="/report"
+          >
+            <img className="w-5 h-5" src="/images/report.png" alt="" />
+            <p className="hidden md:block  hover:text-primary font-roboto font-semibold">
+              Report
+            </p>
+          </NavLink>
         
           <NavLink
             className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
@@ -47,6 +57,7 @@ const Ins_Sidebar = () => {
               Profile
             </p>
           </NavLink>
+
         </div>
       </motion.div>
     </>

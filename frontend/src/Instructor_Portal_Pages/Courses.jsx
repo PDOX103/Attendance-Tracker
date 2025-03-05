@@ -29,27 +29,23 @@ const Courses = ({ id, course_no, course_title, unique_code }) => {
         </p>
 
         {/* Unique ID (Copyable) */}
-        <p className="pt-3 pb-1 text-sm font-medium font-roboto truncate flex items-center">
-          Course Code :{" "}
+        <div className="pt-3 pb-1 flex items-center text-sm font-medium font-roboto">
+          <span>Course Code:</span>
           <strong
-            className="ml-1 cursor-pointer text-blue-600 hover:underline"
+            className="ml-1 cursor-pointer text-blue-600 hover:underline flex items-center gap-2"
             onClick={(e) => {
               e.preventDefault(); // Prevent Link redirection
               copyToClipboard(unique_code);
             }}
           >
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium font-roboto">
-                {unique_code}
-              </span>
-              <img
-                src="/images/copy.png"
-                alt="Copy Icon"
-                className="hover:!scale-110 duration-300 cursor-pointer"
-              />
-            </div>
+            <span>{unique_code}</span>
+            <img
+              src="/images/copy.png"
+              alt="Copy Icon"
+              className="hover:!scale-110 duration-300 cursor-pointer"
+            />
           </strong>
-        </p>
+        </div>
       </div>
     </Link>
   );
