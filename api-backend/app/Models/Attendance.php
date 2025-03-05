@@ -8,7 +8,7 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['session_id', 'enrollment_id', 'present'];
+    protected $fillable = ['session_id', 'enrollment_id', 'students_id', 'present'];
 
     public function session()
     {

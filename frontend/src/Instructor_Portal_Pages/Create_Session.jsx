@@ -6,13 +6,30 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Create_Session = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // Get the 'id' from the URL params
+  const { id } = useParams();
+
+  const today = new Date();
+  const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split("T")[0];
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = useForm();
+
+  // Ensure seconds are always 00
+  const handleTimeChange = (field, value) => {
+    if (value) {
+      const [hours, minutes] = value.split(":"); // Extract hours and minutes
+      const formattedTime = `${hours}:${minutes}:00`; // Append :00 for seconds
+      setValue(field, formattedTime);
+    }
+  };
+  
 
   const formSubmit = async (data) => {
     const { start_time, end_time, date } = data;
@@ -31,9 +48,9 @@ const Create_Session = () => {
 
     const formattedData = {
       date,
-      start_time: start_time, // Already in HH:MM:SS format
-      end_time: end_time, // Already in HH:MM:SS format
-      course_id: parseInt(id, 10), // Using the 'id' from the URL as course_id
+      start_time,
+      end_time,
+      course_id: parseInt(id, 10),
     };
 
     try {
@@ -55,7 +72,7 @@ const Create_Session = () => {
           position: "bottom-center",
           autoClose: 1000,
         });
-        navigate(-1); // Navigate back to the previous page
+        navigate(-1);
       } else {
         toast.error(resData.message || "Something went wrong!", {
           position: "bottom-center",
@@ -88,35 +105,36 @@ const Create_Session = () => {
               <input
                 type="date"
                 {...register("date", { required: true })}
+                defaultValue={localDate} // Fixed to show correct local date
                 className="w-full font-roboto border rounded-md p-2"
                 required
               />
             </div>
 
-            {/* Start Time (HH:MM:SS) */}
+            {/* Start Time */}
             <div>
               <label className="block text-sm font-roboto font-medium mb-1">
-                Start Time (HH:MM:SS)
+                Start Time (HH:MM)
               </label>
               <input
                 type="time"
-                step="1" // Allows seconds in input
                 {...register("start_time", { required: true })}
                 className="w-full font-roboto border rounded-md p-2"
+                onChange={(e) => handleTimeChange("start_time", e.target.value)}
                 required
               />
             </div>
 
-            {/* End Time (HH:MM:SS) */}
+            {/* End Time */}
             <div>
               <label className="block text-sm font-roboto font-medium mb-1">
-                End Time (HH:MM:SS)
+                End Time (HH:MM)
               </label>
               <input
                 type="time"
-                step="1" // Allows seconds in input
                 {...register("end_time", { required: true })}
                 className="w-full font-roboto border rounded-md p-2"
+                onChange={(e) => handleTimeChange("end_time", e.target.value)}
                 required
               />
             </div>

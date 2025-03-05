@@ -58,7 +58,7 @@ const Create_Course = () => {
           <form onSubmit={handleSubmit(formSubmit)}>
             <div className="flex flex-col gap-4">
               <div>
-                <label className="block mb-1 text-sm font-medium font-roboto">Course Name</label>
+                <label className="block mb-1 text-sm font-medium font-roboto">Course No</label>
                 <input
                   {...register("course_no", { required: true })}
                   type="text"

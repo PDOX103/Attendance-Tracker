@@ -7,13 +7,20 @@ use Illuminate\Support\Facades\Validator;
 
 class SessionService
 {
+
     public function getSessionsByCourse($courseId)
     {
-        // Fetch sessions that are active (e.g., date is today or in the future)
+        // Fetch sessions and convert times to 12-hour format
         return Session::where('course_id', $courseId)
             ->where('date', '>=', Carbon::today()) // Only active sessions
-            ->get();
+            ->get()
+            ->map(function ($session) {
+                $session->start_time = Carbon::parse($session->start_time)->format('h:i A');
+                $session->end_time = Carbon::parse($session->end_time)->format('h:i A');
+                return $session;
+            });
     }
+
 
     public function createSession($data)
     {
@@ -58,4 +65,36 @@ class SessionService
             'code' => 201,
         ];
     }
+
+
+    public function updateSessionStatus($sessionId)
+    {
+        // Find the session by ID
+        $session = Session::find($sessionId);
+
+        if (!$session) {
+            return [
+                'status' => false,
+                'message' => 'Session not found',
+                'code' => 404,
+            ];
+        }
+
+        // Toggle session status
+        if ($session->status === 'active') {
+            $session->status = 'ended';
+        } else {
+            $session->status = 'active'; // Optional: Allow reactivating sessions
+        }
+
+        $session->save();
+
+        return [
+            'status' => true,
+            'message' => 'Session status updated successfully',
+            'data' => $session,
+            'code' => 200,
+        ];
+    }
+
 }

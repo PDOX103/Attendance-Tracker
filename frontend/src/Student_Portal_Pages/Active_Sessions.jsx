@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Ins_Sidebar from "./Ins_Sidebar";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
+import Std_Sidebar from "./Std_Sidebar";
 
-const Sessions = () => {
+const Active_Sessions = () => {
   const [sessions, setSessions] = useState([]);
   const { id } = useParams(); // Get course ID from URL params
 
@@ -52,35 +52,9 @@ const Sessions = () => {
     fetchSession();
   }, [id]);
 
-  const handleEndSession = async (sessionId) => {
-    try {
-      const res = await fetch(
-        `http://localhost:8000/api/sessions/${sessionId}/status`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: "ended" }),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(`Error ending session: ${res.statusText}`);
-      }
-
-      const updatedSession = await res.json();
-
-      // Update session status in the state instead of removing it
-      setSessions((prevSessions) =>
-        prevSessions.filter((session) => session.id !== sessionId)
-      );
-    } catch (error) {
-      console.error("Error ending session:", error);
-    }
-  };
-
   return (
     <div className="flex">
-      <Ins_Sidebar />
+      <Std_Sidebar />
       <div className="flex-1 p-6">
         {/* Header Section */}
         <motion.div
@@ -89,13 +63,9 @@ const Sessions = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <h1 className="text-black font-roboto text-lg font-bold">Sessions</h1>
-          <Link
-            to={`/create-session/${id}`}
-            className="hover:!scale-110 duration-300"
-          >
-            <img src="/images/create 2.png" alt="Create Session" />
-          </Link>
+          <h1 className="text-black font-roboto text-lg font-bold">
+            Active Sessions
+          </h1>
         </motion.div>
 
         {/* Sessions Table */}
@@ -103,9 +73,9 @@ const Sessions = () => {
           <table className="w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-BLUE2">
-                <th className="border font-roboto border-black px-4 py-2">
+                {/* <th className="border font-roboto border-black px-4 py-2">
                   Session ID
-                </th>
+                </th> */}
                 <th className="border font-roboto border-black px-4 py-2">
                   Date
                 </th>
@@ -116,7 +86,7 @@ const Sessions = () => {
                   End Time
                 </th>
                 <th className="border font-roboto border-black px-4 py-2">
-                  Remove
+                  Give Attendance
                 </th>
               </tr>
             </thead>
@@ -124,9 +94,9 @@ const Sessions = () => {
               {sessions.length > 0 ? (
                 sessions.map((session) => (
                   <tr key={session.id} className="text-center">
-                    <td className="border font-roboto border-black px-4 py-2">
+                    {/* <td className="border font-roboto border-black px-4 py-2">
                       {session.id}
-                    </td>
+                    </td> */}
                     <td className="border font-roboto border-black px-4 py-2">
                       {session.date}
                     </td>
@@ -137,9 +107,12 @@ const Sessions = () => {
                       {session.end_time || "Ongoing"}
                     </td>
                     <td className="border font-roboto border-black px-4 py-2">
-                      <button onClick={() => handleEndSession(session.id)}>
-                        <img src="/images/remove.png" alt="End Session" />
-                      </button>
+                      <Link
+                        to={`/attendance/${session.id}`}
+                        className="hover:!scale-110 duration-300 flex justify-center"
+                      >
+                        <img src="/images/tap.png" alt="End Session" />
+                      </Link>
                     </td>
                   </tr>
                 ))
@@ -161,4 +134,4 @@ const Sessions = () => {
   );
 };
 
-export default Sessions;
+export default Active_Sessions;

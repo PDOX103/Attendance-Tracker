@@ -7,8 +7,6 @@ const Instructor_Dashboard = () => {
   return (
     <>
       <Ins_Sidebar />
-
-      
     </>
   );
 };

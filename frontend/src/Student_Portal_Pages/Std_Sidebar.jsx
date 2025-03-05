@@ -2,8 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
-const Ins_Sidebar = () => {
-
+const Std_Sidebar = () => {
   const userId = localStorage.getItem("userId");
 
   return (
@@ -21,7 +20,7 @@ const Ins_Sidebar = () => {
         <div className="flex flex-col gap-4 pt-0 pl-[20%] text-[15px]">
           <NavLink
             className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
-            to="/instructor-dashboard"
+            to="/student-dashboard"
           >
             <img className="w-5 h-5" src="/images/dashboard_icon.png" alt="" />
             <p className="hidden md:block  hover:text-primary font-roboto font-semibold">
@@ -30,38 +29,27 @@ const Ins_Sidebar = () => {
           </NavLink>
           <NavLink
             className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
-            to="/instructor-courses"
+            to="/joined-courses"
           >
             <img className="w-5 h-5" src="/images/courses.png" alt="" />
             <p className="hidden md:block  hover:text-primary font-roboto font-semibold">
-              Courses
+              Joined Courses
             </p>
           </NavLink>
 
           <NavLink
             className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
-            to="/report"
-          >
-            <img className="w-5 h-5" src="/images/report.png" alt="" />
-            <p className="hidden md:block  hover:text-primary font-roboto font-semibold">
-              Report
-            </p>
-          </NavLink>
-        
-          <NavLink
-            className="flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-l"
-            to={`/instructor/${userId}`}
+            to={`/student/${userId}`}
           >
             <img className="w-5 h-5" src="/images/profile.png" alt="" />
             <p className="hidden md:block  hover:text-primary font-roboto font-semibold">
               Profile
             </p>
           </NavLink>
-
         </div>
       </motion.div>
     </>
   );
 };
 
-export default Ins_Sidebar;
+export default Std_Sidebar;

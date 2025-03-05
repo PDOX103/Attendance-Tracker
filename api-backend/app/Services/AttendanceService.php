@@ -5,19 +5,21 @@ use App\Models\Attendance;
 
 class AttendanceService
 {
-    public function markAttendance($sessionId, $enrollmentId, $present)
+    public function markAttendance($sessionId, $enrollmentId, $studentsId, $present)
     {
-        // Create or update attendance
         return Attendance::updateOrCreate(
             [
                 'session_id' => $sessionId,
-                'enrollment_id' => $enrollmentId, // Ensure this is used correctly
+                'enrollment_id' => $enrollmentId,
             ],
             [
+                'students_id' => $studentsId, // Store manually entered student ID
                 'present' => $present,
             ]
         );
     }
+
+
 
     public function getAttendanceBySession($sessionId)
     {

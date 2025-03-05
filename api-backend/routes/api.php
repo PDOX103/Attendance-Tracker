@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrolledController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\AttendanceController;
 
@@ -41,8 +42,11 @@ Route::post('/courses/join', [CourseController::class, 'joinCourse']);
 
 Route::post('/sessions', [SessionController::class, 'createSession']);
 Route::get('/sessions/course/{id}', [SessionController::class, 'getCoursesByCourse']);
+Route::put('/sessions/{id}/status', [SessionController::class, 'updateSessionStatus']);
 
 
+
+Route::get('/courses/enrolled/{id}', [EnrolledController::class, 'getCoursesByEnroll']);
 
 Route::post('/sessions/{sessionId}/attendance', [AttendanceController::class, 'markAttendance']);
 Route::get('/sessions/{sessionId}/attendance', [AttendanceController::class, 'getAttendanceBySession']);

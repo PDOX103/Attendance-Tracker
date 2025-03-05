@@ -23,6 +23,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sessions from "./Instructor_Portal_Pages/Sessions";
 import Create_Session from "./Instructor_Portal_Pages/Create_Session";
+import Joined_Courses from "./Student_Portal_Pages/Joined_Courses";
+import Std_profile from "./Student_Portal_Pages/Std_profile";
+import Join_Course from "./Student_Portal_Pages/Join_Course";
+import Active_Sessions from "./Student_Portal_Pages/Active_Sessions";
+import Attendance from "./Student_Portal_Pages/Attendance";
 
 const App = () => {
   const clientId =
@@ -62,6 +67,12 @@ const App = () => {
           <Route path="/create-course" element={<Create_Course />} />
           <Route path="/instructor-courses/:id" element={<Sessions />} />
           <Route path="/create-session/:id" element={<Create_Session />} />
+
+          <Route path="/joined-courses" element={<Joined_Courses />} />
+          <Route path="/student/:id" element={<Std_profile />} />
+          <Route path="/join-course" element={<Join_Course/>}/>
+          <Route path="/joined-courses/:id" element={<Active_Sessions />} />
+          <Route path="/attendance/:id" element={<Attendance />} />
 
         </Routes>
         <ToastContainer />
