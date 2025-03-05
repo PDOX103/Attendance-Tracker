@@ -73,9 +73,9 @@ const Active_Sessions = () => {
           <table className="w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-BLUE2">
-                <th className="border font-roboto border-black px-4 py-2">
+                {/* <th className="border font-roboto border-black px-4 py-2">
                   Session ID
-                </th>
+                </th> */}
                 <th className="border font-roboto border-black px-4 py-2">
                   Date
                 </th>
@@ -94,9 +94,9 @@ const Active_Sessions = () => {
               {sessions.length > 0 ? (
                 sessions.map((session) => (
                   <tr key={session.id} className="text-center">
-                    <td className="border font-roboto border-black px-4 py-2">
+                    {/* <td className="border font-roboto border-black px-4 py-2">
                       {session.id}
-                    </td>
+                    </td> */}
                     <td className="border font-roboto border-black px-4 py-2">
                       {session.date}
                     </td>
