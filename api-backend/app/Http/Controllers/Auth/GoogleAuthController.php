@@ -49,4 +49,18 @@ class GoogleAuthController extends Controller
 
         return response()->json(['user' => $user, 'token' => $token, 'role' => $user->role]);
     }
+
+    public function validateToken(Request $request)
+{
+    $user = $request->user();
+
+    if ($user) {
+        return response()->json(['success' => true, 'user' => $user]);
+    }
+
+    return response()->json(['success' => false], 401);
+}
+
+
+  
 }

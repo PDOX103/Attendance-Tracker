@@ -21,7 +21,7 @@ const AdminPage = ({ loggedInAdminId }) => {
        console.log("Logged-in Admin ID:", loggedInAdminId);
 
        const results = users.filter(user => 
-           user.id.toString() !== loggedInAdminId.toString() && // Ensure type consistency
+           user.id.toString() !== loggedInAdminId.toString() && 
            user.name.toLowerCase().startsWith(searchQuery.toLowerCase())
        );
        setFilteredUsers(results);
@@ -78,7 +78,7 @@ const AdminPage = ({ loggedInAdminId }) => {
            if (!response.ok) {
                const errorData = await response.json();
                console.error("Failed to update role:", errorData);
-               return; // Exit the function if the update fails
+               return; 
            }
 
            setSuccessMessage("User updated successfully!");

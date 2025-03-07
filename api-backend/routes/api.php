@@ -37,6 +37,10 @@ Route::post('/auth/google',[GoogleAuthController::class, 'handleGoogleCallback']
 Route::get('/users', [GoogleAuthController::class, 'getAllUsers']);
 Route::get('/users/{id}', [GoogleAuthController::class, 'getUserDetails']);
 
+Route::middleware(['auth:sanctum'])->post('/auth/validate', [GoogleAuthController::class, 'validateToken']);
+
+
+
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByInstructor']);
 Route::post('/courses/join', [CourseController::class, 'joinCourse']);

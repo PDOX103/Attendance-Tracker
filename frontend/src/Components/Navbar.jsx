@@ -17,21 +17,28 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const signedInStatus = localStorage.getItem("isSignedIn");
-    if (signedInStatus === "true") {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setIsSignedIn(false);
+      localStorage.setItem("isSignedIn", "false");
+    } else {
       setIsSignedIn(true);
     }
-  }, [setIsSignedIn]);
+  }, []);
 
   const handleSignOut = () => {
     setIsSignedIn(false);
-    localStorage.setItem("isSignedIn", "false"); 
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isSignedIn");
     navigate("/");
   };
 
   const handleSignIn = () => {
     setIsSignedIn(true);
-    localStorage.setItem("isSignedIn", "true"); 
+    localStorage.setItem("isSignedIn", "true");
   };
 
   return (
@@ -43,7 +50,6 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          {/*Logo section*/}
           <div className="flex items-center">
             <p>
               <img src="/images/verification 1.png" alt="" />
@@ -53,7 +59,6 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
             </p>
           </div>
 
-          {/*Menu section*/}
           <div className="hidden md:block">
             <ul className="flex items-center gap-6">
               {NavbarMenu.map((menu) => (
@@ -74,13 +79,11 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
               )}
             </ul>
           </div>
-          {/*Mobile responsive section*/}
           <div className="md:hidden" onClick={() => setOpen(!open)}>
             <MdMenu className="text-4xl" />
           </div>
         </motion.div>
       </nav>
-      {/*Mobile Menu section*/}
       <ResponsiveMenu open={open} />
     </>
   );
