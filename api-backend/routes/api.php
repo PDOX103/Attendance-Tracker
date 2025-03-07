@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrolledController;
@@ -50,3 +52,4 @@ Route::get('/courses/enrolled/{id}', [EnrolledController::class, 'getCoursesByEn
 
 Route::post('/sessions/{sessionId}/attendance', [AttendanceController::class, 'markAttendance']);
 Route::get('/sessions/{sessionId}/attendance', [AttendanceController::class, 'getAttendanceBySession']);
+Route::put('/users/{id}/role', [AdminController::class, 'updateUserRole']);

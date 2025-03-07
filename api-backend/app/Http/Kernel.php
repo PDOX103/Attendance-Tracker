@@ -41,5 +41,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'test.middleware' => \App\Http\Middleware\TestMiddleware::class,
+        
     ];
 }
