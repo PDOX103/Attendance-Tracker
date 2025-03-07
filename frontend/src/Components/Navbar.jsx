@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdMenu } from "react-icons/md";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { motion } from "framer-motion";
@@ -14,11 +14,24 @@ const NavbarMenu = [
 
 const Navbar = ({ isSignedIn, setIsSignedIn }) => {
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const signedInStatus = localStorage.getItem("isSignedIn");
+    if (signedInStatus === "true") {
+      setIsSignedIn(true);
+    }
+  }, [setIsSignedIn]);
 
   const handleSignOut = () => {
     setIsSignedIn(false);
-    navigate("/"); 
+    localStorage.setItem("isSignedIn", "false"); 
+    navigate("/");
+  };
+
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+    localStorage.setItem("isSignedIn", "true"); 
   };
 
   return (
@@ -52,11 +65,11 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
               ))}
               {isSignedIn ? (
                 <button onClick={handleSignOut} className="hover:!scale-110 duration-300">
-                  <img src ="/images/Log_out.png"/>
+                  <img src="/images/Log_out.png" alt="Log Out" />
                 </button>
               ) : (
                 <Link to="/signin" className="hover:!scale-110 duration-300">
-                  <img src="/images/SignIn_Button.png" alt="" />
+                  <img src="/images/SignIn_Button.png" alt="Sign In" />
                 </Link>
               )}
             </ul>

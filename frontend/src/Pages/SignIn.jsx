@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
@@ -6,8 +6,22 @@ import { GoogleLogin } from "@react-oauth/google";
 const SignIn = ({ setIsSignedIn }) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const signedInStatus = localStorage.getItem("isSignedIn");
+    if (signedInStatus === "true") {
+      setIsSignedIn(true);
+      const role = localStorage.getItem("role");
+      if (role === "admin") {
+        navigate("/admin-dashboard");
+      } else if (role === "instructor") {
+        navigate("/instructor-dashboard");
+      } else {
+        navigate("/student-dashboard");
+      }
+    }
+  }, [setIsSignedIn, navigate]);
+
   const handleGoogleSuccess = async (credentialResponse) => {
-    
     try {
       const response = await fetch("http://127.0.0.1:8000/api/auth/google", {
         method: "POST",
@@ -15,33 +29,28 @@ const SignIn = ({ setIsSignedIn }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          credential: credentialResponse.credential, // Google Token
+          credential: credentialResponse.credential,
         }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         console.log("User Data:", data.user);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("role",data.role);
+        localStorage.setItem("role", data.role);
         localStorage.setItem("userId", data.user.id);
-
-        console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("userId"));
+        localStorage.setItem("isSignedIn", "true"); 
 
         setIsSignedIn(true);
 
-        if(data.role === "admin"){
+        if (data.role === "admin") {
           navigate("/admin-dashboard");
-        }
-        else if(data.role === "instructor"){
+        } else if (data.role === "instructor") {
           navigate("/instructor-dashboard");
-        }
-        else{
+        } else {
           navigate("/student-dashboard");
         }
         console.log("Google Sign-In successful:", credentialResponse);
-
       } else {
         console.error("Error:", data);
       }
@@ -49,7 +58,6 @@ const SignIn = ({ setIsSignedIn }) => {
       console.error("Google Sign-In failed:", error);
     }
   };
-  
 
   const handleGoogleError = (error) => {
     console.error("Google Sign-In failed:", error);
@@ -86,24 +94,6 @@ const SignIn = ({ setIsSignedIn }) => {
                 onError={handleGoogleError}
               />
             </div>
-
-            <section>
-              <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
-            </section>
-
-            {/* <div className="flex justify-center gap-3">
-              <h1 className="font-roboto text-sm">Don't have an account?</h1>
-              <NavLink
-                to="/signup"
-                className="font-roboto font-semibold text-sm text-BLUE2"
-              >
-                Sign Up
-              </NavLink>
-            </div> */}
-
-            <section>
-              <div className="container grid-col-1 md:grid-cols-2 min-h-[10px]"></div>
-            </section>
 
             <div className="flex justify-center gap-3">
               <div className="hover:!scale-110 duration-300">
