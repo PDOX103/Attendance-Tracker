@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Navbar from "./Components/Navbar";
@@ -33,6 +33,16 @@ const App = () => {
   const clientId =
     "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com";
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [loggedInAdminId, setLoggedInAdminId] = useState(null);
+
+  useEffect(() => {
+    
+    const adminId = localStorage.getItem("userId");
+    if (adminId) {
+      setLoggedInAdminId(adminId);
+      setIsSignedIn(true);
+    }
+  }, []);
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -57,7 +67,7 @@ const App = () => {
           <Route path="/student-dashboard" element={<Student_Dashboard />} />
 
           <Route path="/empty" element={<EmptyPage />} />
-          <Route path="/admin-dashboard" element={<AdminPage />} />
+          <Route path="/admin-dashboard" element={<AdminPage loggedInAdminId={loggedInAdminId} />} />
           <Route
             path="/instructor-dashboard"
             element={<Instructor_Dashboard />}

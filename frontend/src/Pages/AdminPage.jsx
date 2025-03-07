@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-const SUPERUSER_ID = 9; 
+const SUPERUSER_EMAIL = import.meta.env.VITE_SUPERUSER_EMAIL;
 
-const AdminPage = () => {
+const AdminPage = ({ loggedInAdminId }) => { 
    const [users, setUsers] = useState([]);
    const [searchQuery, setSearchQuery] = useState("");
    const [filteredUsers, setFilteredUsers] = useState([]);
    const [selectedUserId, setSelectedUserId] = useState(null);
+   const [selectedUserEmail, setSelectedUserEmail] = useState(""); 
    const [newRole, setNewRole] = useState("");
+   const [successMessage, setSuccessMessage] = useState("");
 
    useEffect(() => {
        fetchUsers();
    }, []);
 
    useEffect(() => {
-       const results = users.filter(user =>
-           user.name.toLowerCase().includes(searchQuery.toLowerCase())
+       // Log current users and logged-in admin ID for debugging
+       console.log("Current users:", users);
+       console.log("Logged-in Admin ID:", loggedInAdminId);
+
+       const results = users.filter(user => 
+           user.id.toString() !== loggedInAdminId.toString() && // Ensure type consistency
+           user.name.toLowerCase().startsWith(searchQuery.toLowerCase())
        );
        setFilteredUsers(results);
-   }, [searchQuery, users]);
+   }, [searchQuery, users, loggedInAdminId]);
 
    const fetchUsers = async () => {
        try {
@@ -45,43 +52,79 @@ const AdminPage = () => {
    };
 
    const handleRoleChange = async () => {
-       if (!selectedUserId || !newRole || selectedUserId === SUPERUSER_ID) return; // Prevent updates for superuser
+       console.log("Selected User ID:", selectedUserId);
+       console.log("New Role:", newRole);
+       console.log("Selected User Email:", selectedUserEmail);
+       console.log("Superuser Email:", SUPERUSER_EMAIL);
+       console.log("Logged-in Admin ID:", loggedInAdminId);
 
-       await fetch(`http://127.0.0.1:8000/api/users/${selectedUserId}/role`, {
-           method: "PUT",
-           headers: {
-               "Content-Type": "application/json",
-               "Authorization": `Bearer ${localStorage.getItem("token")}`,
-           },
-           body: JSON.stringify({ role: newRole }),
-       });
+       if (!selectedUserId || !newRole || 
+           selectedUserEmail.trim() === SUPERUSER_EMAIL.trim() || 
+           selectedUserId.toString() === loggedInAdminId.toString()) {
+           console.log("Role update prevented for superuser or logged-in admin.");
+           return; 
+       }
 
-       fetchUsers(); 
+       try {
+           const response = await fetch(`http://127.0.0.1:8000/api/users/${selectedUserId}/role`, {
+               method: "PUT",
+               headers: {
+                   "Content-Type": "application/json",
+                   "Authorization": `Bearer ${localStorage.getItem("token")}`,
+               },
+               body: JSON.stringify({ role: newRole }),
+           });
+
+           if (!response.ok) {
+               const errorData = await response.json();
+               console.error("Failed to update role:", errorData);
+               return; // Exit the function if the update fails
+           }
+
+           setSuccessMessage("User updated successfully!");
+           setTimeout(() => {
+               setSuccessMessage("");
+           }, 3000);
+
+           fetchUsers(); 
+       } catch (error) {
+           console.error("Error updating role:", error);
+       }
    };
 
    return (
-       <div className="container mx-auto text-center">
-           <h1 className="text-2xl font-bold">Admin Page</h1>
+       <div className="container mx-auto p-6">
+           <h1 className="text-3xl font-bold text-center mb-6">Admin Dashboard</h1>
 
-           <div>
+           {successMessage && (
+               <div className="bg-green-500 text-white p-4 rounded mb-4 text-center">
+                   {successMessage}
+               </div>
+           )}
+
+           <div className="mb-4">
                <input
                    type="text"
                    placeholder="Search for a user..."
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
-                   className="border p-2 mb-4"
+                   className="border p-2 rounded w-full"
                />
            </div>
 
-           <div className="user-list">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                {searchQuery && filteredUsers.length > 0 ? (
                    filteredUsers.map(user => (
                        <div
                            key={user.id}
-                           className={`user-item p-2 border rounded mb-2 cursor-pointer ${selectedUserId === user.id ? 'bg-gray-200' : ''}`}
-                           onClick={() => setSelectedUserId(user.id)}
+                           className={`bg-white shadow-md rounded-lg p-4 cursor-pointer transition-transform transform hover:scale-105 ${selectedUserId === user.id ? 'border border-blue-500' : ''}`}
+                           onClick={() => {
+                               setSelectedUserId(user.id);
+                               setSelectedUserEmail(user.email); 
+                           }}
                        >
-                           {user.name} - {user.email}
+                           <h2 className="font-semibold">{user.name}</h2>
+                           <p className="text-gray-600">{user.email}</p>
                        </div>
                    ))
                ) : (
@@ -90,23 +133,25 @@ const AdminPage = () => {
            </div>
 
            {selectedUserId && (
-               <div className="role-selection">
-                   <select onChange={(e) => setNewRole(e.target.value)} value={newRole} disabled={selectedUserId === SUPERUSER_ID}>
+               <div className="mt-6">
+                   <h2 className="text-xl mb-2">Update User Role</h2>
+                   <select onChange={(e) => setNewRole(e.target.value)} value={newRole} disabled={selectedUserEmail === SUPERUSER_EMAIL || selectedUserId === loggedInAdminId} className="border p-2 rounded mr-2">
                        <option value="">Select Role</option>
                        <option value="admin">Admin</option>
                        <option value="instructor">Instructor</option>
                        <option value="student">Student</option>
                    </select>
-                   <button onClick={handleRoleChange} className="ml-2" disabled={selectedUserId === SUPERUSER_ID}>
+                   <button onClick={handleRoleChange} className="bg-blue-500 text-white p-2 rounded" disabled={selectedUserEmail === SUPERUSER_EMAIL || selectedUserId === loggedInAdminId}>
                        Update Role
                    </button>
-                   {selectedUserId === SUPERUSER_ID && (
-                       <p className="text-red-500">You cannot update the superuser's role.</p>
+                   {selectedUserEmail === SUPERUSER_EMAIL && (
+                       <p className="text-red-500 mt-2">You cannot update the superuser's role.</p>
+                   )}
+                   {selectedUserId === loggedInAdminId && (
+                       <p className="text-red-500 mt-2">You cannot update your own role.</p>
                    )}
                </div>
            )}
-
-      
        </div>
    );
 };
