@@ -30,6 +30,7 @@ import Active_Sessions from "./Student_Portal_Pages/Active_Sessions";
 import Attendance from "./Student_Portal_Pages/Attendance";
 import Report from "./Instructor_Portal_Pages/Report";
 import AttendanceReport from "./Instructor_Portal_Pages/AttendanceReport";
+import AdminRoute from "./ProtectedRoutes/AdminRoute";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com";
@@ -80,6 +81,8 @@ const App = () => {
     validateSession();
   }, []);
 
+  const ProtectedAdminPage = AdminRoute(AdminPage,"admin");
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <main className="overflow-hidden">
@@ -96,7 +99,7 @@ const App = () => {
           <Route path="/signup-instructor" element={<SignUp_Instructor />} />
           <Route path="/student-dashboard" element={<Student_Dashboard />} />
           <Route path="/empty" element={<EmptyPage />} />
-          <Route path="/admin-dashboard" element={<AdminPage loggedInAdminId={loggedInAdminId} />} />
+          <Route path="/admin-dashboard" element={<ProtectedAdminPage loggedInAdminId={loggedInAdminId} />} />
           <Route path="/instructor-dashboard" element={<Instructor_Dashboard />} />
           <Route path="/instructor-courses" element={<Ins_Courses />} />
           <Route path="/instructor/:id" element={<Ins_Profile />} />
