@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->post('/auth/validate', [GoogleAuthControlle
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/courses/instructor/{id}', [CourseController::class, 'getCoursesByInstructor']);
 Route::post('/courses/join', [CourseController::class, 'joinCourse']);
+Route::put('/courses/{id}/status', [CourseController::class, 'updateCourseStatus']);
 
 
 Route::post('/sessions', [SessionController::class, 'createSession']);

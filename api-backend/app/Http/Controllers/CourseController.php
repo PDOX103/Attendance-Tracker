@@ -89,13 +89,20 @@ class CourseController extends Controller
         if ($existingEnrollment) {
             return response()->json(['status' => false, 'message' => 'You have already joined this course'], 400);
         }
-        
+
         Enrollment::create([
             'course_id' => $course->id,
             'student_id' => $request->student_id,
         ]);
 
         return response()->json(['status' => true, 'message' => 'Successfully joined the course'], 200);
+    }
+
+
+    public function updateCourseStatus($id)
+    {
+        $result = $this->courseService->updateCourseStatus($id);
+        return response()->json($result, $result['code']);
     }
 
 }

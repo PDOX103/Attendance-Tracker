@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Ins_Sidebar from "./Ins_Sidebar";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Sessions = () => {
   const [sessions, setSessions] = useState([]);
@@ -22,14 +23,6 @@ const Sessions = () => {
       }
       const result = await res.json();
 
-      result.data.forEach((session) => {
-        console.log(
-          `Session ID: ${session.id}, Start Time: ${
-            session.start_time
-          }, End Time: ${session.end_time || "Ongoing"}`
-        );
-      });
-
       // Filter only active sessions
       const activeSessions = result.data.filter(
         (session) => session.status === "active"
@@ -41,14 +34,6 @@ const Sessions = () => {
   };
 
   useEffect(() => {
-    const now = new Date();
-    let hours = now.getHours() % 12 || 12; // Convert to 12-hour format, treating 0 as 12
-    let minutes = now.getMinutes().toString().padStart(2, "0");
-    let seconds = now.getSeconds().toString().padStart(2, "0");
-
-    const formattedTime = `${hours}:${minutes}:${seconds}`;
-    console.log("Current Time:", formattedTime); // Logs time in HH:MM:SS (12-hour format without AM/PM)
-
     fetchSession();
   }, [id]);
 
@@ -73,6 +58,12 @@ const Sessions = () => {
       setSessions((prevSessions) =>
         prevSessions.filter((session) => session.id !== sessionId)
       );
+
+      // Show success toast
+      toast.success("Session Ended Successfully!", {
+        autoClose: 1000,
+        position: "bottom-center",
+      });
     } catch (error) {
       console.error("Error ending session:", error);
     }
