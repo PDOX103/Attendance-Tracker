@@ -18,7 +18,7 @@ class GoogleAuthController extends Controller
 
     public function getAllUsers()
     {
-        $users = User::select('id', 'name', 'email')->get();
+        $users = User::select('id','role', 'name', 'email')->get();
 
         return response()->json(['users' => $users]);
     }
