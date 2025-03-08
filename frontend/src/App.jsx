@@ -28,6 +28,8 @@ import Std_profile from "./Student_Portal_Pages/Std_profile";
 import Join_Course from "./Student_Portal_Pages/Join_Course";
 import Active_Sessions from "./Student_Portal_Pages/Active_Sessions";
 import Attendance from "./Student_Portal_Pages/Attendance";
+import Report from "./Instructor_Portal_Pages/Report";
+import AttendanceReport from "./Instructor_Portal_Pages/AttendanceReport";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com";
@@ -106,6 +108,8 @@ const App = () => {
           <Route path="/join-course" element={<Join_Course />} />
           <Route path="/joined-courses/:id" element={<Active_Sessions />} />
           <Route path="/attendance/:id" element={<Attendance />} />
+          <Route path="/report" element={<Report/>} />
+          <Route path="/attendance-report/:id" element={<AttendanceReport/>} />
         </Routes>
         <ToastContainer />
         <Footer />

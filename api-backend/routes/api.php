@@ -56,4 +56,6 @@ Route::get('/courses/enrolled/{id}', [EnrolledController::class, 'getCoursesByEn
 
 Route::post('/sessions/{sessionId}/attendance', [AttendanceController::class, 'markAttendance']);
 Route::get('/sessions/{sessionId}/attendance', [AttendanceController::class, 'getAttendanceBySession']);
+Route::get('/courses/{courseId}/attendance-report', [AttendanceController::class, 'getStudentAttendanceReportByCourse']);
+
 Route::put('/users/{id}/role', [AdminController::class, 'updateUserRole']);

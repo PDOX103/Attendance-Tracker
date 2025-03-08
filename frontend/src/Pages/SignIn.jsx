@@ -39,7 +39,7 @@ const SignIn = ({ setIsSignedIn }) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
         localStorage.setItem("userId", data.user.id);
-        localStorage.setItem("isSignedIn", "true"); 
+        localStorage.setItem("isSignedIn", "true");
 
         setIsSignedIn(true);
 
@@ -94,6 +94,9 @@ const SignIn = ({ setIsSignedIn }) => {
                 onError={handleGoogleError}
               />
             </div>
+            <section>
+              <div className="container grid-col-1 md:grid-cols-2 min-h-[15px]"></div>
+            </section>
 
             <div className="flex justify-center gap-3">
               <div className="hover:!scale-110 duration-300">

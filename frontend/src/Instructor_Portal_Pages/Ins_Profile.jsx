@@ -43,12 +43,12 @@ const Ins_Profile = () => {
                 </span>{" "}
                 <span className="text-black">{user.email}</span>
               </p>
-              <p>
+              {/* <p>
                 <span className="font-roboto font-semibold text-gray-600">
                   ID:
                 </span>{" "}
                 <span className="text-black">{user.id}</span>
-              </p>
+              </p> */}
               <p>
                 <span className="font-roboto font-semibold text-gray-600">
                   Role:
