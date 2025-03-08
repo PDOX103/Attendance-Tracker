@@ -17,7 +17,9 @@ const Ins_Courses = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/api/courses/instructor/${instructorId}`);
+      const res = await fetch(
+        `http://localhost:8000/api/courses/instructor/${instructorId}`
+      );
       const result = await res.json();
       const activeCourses = result.data.filter((c) => c.status === "active");
       setCourse(activeCourses);
@@ -33,19 +35,30 @@ const Ins_Courses = () => {
   // Function to handle ending a course
   const handleEndCourse = async (courseId) => {
     try {
-      const res = await fetch(`http://localhost:8000/api/courses/${courseId}/status`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:8000/api/courses/${courseId}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const result = await res.json();
       if (result.status) {
-        toast.success("Course ended successfully!", { position: "bottom-center", autoClose: 1000 });
-        setCourse((prevCourses) => prevCourses.filter((c) => c.id !== courseId)); // Remove ended course
+        toast.success("Course ended successfully!", {
+          position: "bottom-center",
+          autoClose: 1000,
+        });
+        setCourse((prevCourses) =>
+          prevCourses.filter((c) => c.id !== courseId)
+        ); // Remove ended course
       } else {
-        toast.error("Failed to end course!", { position: "bottom-center", autoClose: 1000 });
+        toast.error("Failed to end course!", {
+          position: "bottom-center",
+          autoClose: 1000,
+        });
       }
     } catch (error) {
       console.error("Error updating course status:", error);
@@ -68,6 +81,10 @@ const Ins_Courses = () => {
             <img src="/images/create 1.png" alt="Create Course" />
           </Link>
         </motion.div>
+
+        <section>
+          <div className="container grid-col-1 md:grid-cols-2 min-h-[15px]"></div>
+        </section>
 
         {/* Course Grid */}
         <motion.div

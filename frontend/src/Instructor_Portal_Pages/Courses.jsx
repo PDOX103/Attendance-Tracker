@@ -15,9 +15,16 @@ const Courses = ({ id, course_no, course_title, unique_code, onEndCourse }) => {
   return (
     <div className="border bg-BLUE p-4 rounded-lg shadow-lg transform hover:translate-y-[-5px] hover:shadow-2xl transition-all duration-300 ease-in-out">
       {/* Course Info (Clickable) */}
-      <Link className="text-gray-900 cursor-pointer" to={`/instructor-courses/${id}`}>
-        <p className="pt-1 pb-1 text-sm font-medium font-roboto truncate">{course_no}</p>
-        <p className="text-sm font-bold font-roboto text-red-900">{course_title}</p>
+      <Link
+        className="text-gray-900 cursor-pointer"
+        to={`/instructor-courses/${id}`}
+      >
+        <p className="pt-1 pb-1 text-sm font-medium font-roboto truncate">
+          {course_no}
+        </p>
+        <p className="text-sm font-bold font-roboto text-red-900">
+          {course_title}
+        </p>
       </Link>
 
       {/* Unique ID (Copyable) */}
@@ -39,13 +46,15 @@ const Courses = ({ id, course_no, course_title, unique_code, onEndCourse }) => {
         </strong>
       </div>
 
-      {/* End Course Button */}
-      <button
-        className="text-white bg-[#111B47] px-3 py-1 rounded-full hover:!scale-110 duration-300 shadow-lg font-roboto text-sm"
-        onClick={() => onEndCourse(id)}
-      >
-        End Course
-      </button>
+      {/* End Course Button (Centered) */}
+      <div className="flex justify-center mt-3">
+        <button
+          className="text-white bg-[#111B47] px-3 py-1 rounded-full hover:!scale-110 duration-300 shadow-lg font-roboto text-sm"
+          onClick={() => onEndCourse(id)}
+        >
+          End Course
+        </button>
+      </div>
     </div>
   );
 };
