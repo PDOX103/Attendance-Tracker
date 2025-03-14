@@ -7,17 +7,24 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable()->unique();
-            $table->string('avatar')->nullable();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('role')->default('student');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('remember_token', 100)->nullable();
+            $table->timestamps();
         });
     }
 
     public function down()
     {
+
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['google_id', 'avatar']);
         });
-        Schema::dropIfExists('users');
-    }
+
+
 };
