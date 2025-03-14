@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdMenu } from "react-icons/md";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { motion } from "framer-motion";
@@ -14,11 +14,31 @@ const NavbarMenu = [
 
 const Navbar = ({ isSignedIn, setIsSignedIn }) => {
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setIsSignedIn(false);
+      localStorage.setItem("isSignedIn", "false");
+    } else {
+      setIsSignedIn(true);
+    }
+  }, []);
 
   const handleSignOut = () => {
     setIsSignedIn(false);
-    navigate("/"); 
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("isSignedIn");
+    navigate("/");
+  };
+
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+    localStorage.setItem("isSignedIn", "true");
   };
 
   return (
@@ -30,7 +50,6 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          {/*Logo section*/}
           <div className="flex items-center">
             <p>
               <img src="/images/verification 1.png" alt="" />
@@ -40,7 +59,6 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
             </p>
           </div>
 
-          {/*Menu section*/}
           <div className="hidden md:block">
             <ul className="flex items-center gap-6">
               {NavbarMenu.map((menu) => (
@@ -52,22 +70,20 @@ const Navbar = ({ isSignedIn, setIsSignedIn }) => {
               ))}
               {isSignedIn ? (
                 <button onClick={handleSignOut} className="hover:!scale-110 duration-300">
-                  <img src ="/images/Log_out.png"/>
+                  <img src="/images/Log_out.png" alt="Log Out" />
                 </button>
               ) : (
                 <Link to="/signin" className="hover:!scale-110 duration-300">
-                  <img src="/images/SignIn_Button.png" alt="" />
+                  <img src="/images/SignIn_Button.png" alt="Sign In" />
                 </Link>
               )}
             </ul>
           </div>
-          {/*Mobile responsive section*/}
           <div className="md:hidden" onClick={() => setOpen(!open)}>
             <MdMenu className="text-4xl" />
           </div>
         </motion.div>
       </nav>
-      {/*Mobile Menu section*/}
       <ResponsiveMenu open={open} />
     </>
   );

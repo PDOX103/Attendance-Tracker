@@ -18,7 +18,7 @@ class GoogleAuthController extends Controller
 
     public function getAllUsers()
     {
-        $users = User::select('id', 'name', 'email')->get();
+        $users = User::select('id','role', 'name', 'email')->get();
 
         return response()->json(['users' => $users]);
     }
@@ -49,4 +49,18 @@ class GoogleAuthController extends Controller
 
         return response()->json(['user' => $user, 'token' => $token, 'role' => $user->role]);
     }
+
+    public function validateToken(Request $request)
+{
+    $user = $request->user();
+
+    if ($user) {
+        return response()->json(['success' => true, 'user' => $user]);
+    }
+
+    return response()->json(['success' => false], 401);
+}
+
+
+  
 }

@@ -22,5 +22,10 @@ class Session extends Model
     {
         return $value ? Carbon::parse($value)->format('h:i A') : null; // Converts to 12-hour format
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'session_id');
+    }
 }
 

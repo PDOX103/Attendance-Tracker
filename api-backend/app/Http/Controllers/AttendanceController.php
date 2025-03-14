@@ -76,4 +76,47 @@ class AttendanceController extends Controller
             'data' => $attendance,
         ]);
     }
+
+
+    public function getStudentAttendanceReportByCourse($courseId)
+{
+    // Fetch the specific course with its sessions and attendances
+    $course = \App\Models\Course::with('sessions.attendances')->find($courseId);
+
+    if (!$course) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Course not found'
+        ], 404);
+    }
+
+    $studentsAttendance = [];
+
+    // Loop through each session of the course
+    foreach ($course->sessions as $session) {
+        foreach ($session->attendances as $attendance) {
+            // Count attendance per unique students_id
+            if (!isset($studentsAttendance[$attendance->students_id])) {
+                $studentsAttendance[$attendance->students_id] = 0;
+            }
+            if ($attendance->present) {
+                $studentsAttendance[$attendance->students_id] += 1;
+            }
+        }
+    }
+
+    // Sort by students_id in ascending order
+    ksort($studentsAttendance);
+
+    return response()->json([
+        'status' => true,
+        'data' => [
+            'course_id' => $course->id,
+            'course_title' => $course->course_title,
+            'students' => $studentsAttendance
+        ]
+    ]);
+}
+
+
 }

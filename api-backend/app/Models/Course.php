@@ -14,4 +14,10 @@ class Course extends Model
     {
         return $this->belongsTo(User::class, 'instructor_id');
     }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class, 'course_id');
+    }
+    
 }

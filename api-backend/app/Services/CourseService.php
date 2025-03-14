@@ -62,5 +62,37 @@ class CourseService
         ];
     }
 
-    
+    // In CourseService.php
+
+    public function updateCourseStatus($courseId)
+    {
+        // Find the session by ID
+        $course = Course::find($courseId);
+
+        if (!$course) {
+            return [
+                'status' => false,
+                'message' => 'Course not found',
+                'code' => 404,
+            ];
+        }
+
+        // Toggle session status
+        if ($course->status === 'active') {
+            $course->status = 'ended';
+        } else {
+            $course->status = 'active'; // Optional: Allow reactivating sessions
+        }
+
+        $course->save();
+
+        return [
+            'status' => true,
+            'message' => 'Course status updated successfully',
+            'data' => $course,
+            'code' => 200,
+        ];
+    }
+
+
 }
