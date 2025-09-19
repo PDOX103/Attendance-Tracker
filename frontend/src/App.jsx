@@ -31,6 +31,7 @@ import Attendance from "./Student_Portal_Pages/Attendance";
 import Report from "./Instructor_Portal_Pages/Report";
 import AttendanceReport from "./Instructor_Portal_Pages/AttendanceReport";
 import AdminRoute from "./ProtectedRoutes/AdminRoute";
+import CourseStudentsPage from "./Components/CourseStudentsPage";
 
 const App = () => {
   const clientId = "592497027256-cltqn74lk5vo28tkgj5mv8bc9k8joapc.apps.googleusercontent.com";
@@ -113,6 +114,7 @@ const App = () => {
           <Route path="/attendance/:id" element={<Attendance />} />
           <Route path="/report" element={<Report/>} />
           <Route path="/attendance-report/:id" element={<AttendanceReport/>} />
+          <Route path="/instructor/course/:courseId/students" element={<CourseStudentsPage />} />
         </Routes>
         <ToastContainer />
         <Footer />

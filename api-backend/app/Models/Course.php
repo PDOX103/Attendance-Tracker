@@ -19,5 +19,20 @@ class Course extends Model
     {
         return $this->hasMany(Session::class, 'course_id');
     }
-    
+
+    /**
+     * Get the enrollments for the course
+     */
+    public function enrollments()
+    {
+        return $this->hasMany(\App\Models\Enrollment::class, 'course_id');
+    }
+
+    /**
+     * Get the students enrolled in this course through enrollments
+     */
+    public function students()
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'enrollments', 'course_id', 'student_id');
+    }
 }
