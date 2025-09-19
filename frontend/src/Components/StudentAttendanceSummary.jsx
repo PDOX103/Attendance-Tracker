@@ -53,7 +53,7 @@ const StudentAttendanceSummary = ({ studentId }) => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="rounded-lg shadow-md p-6">
         <h3 className="text-xl font-bold mb-4">Attendance Summary</h3>
         <div className="animate-pulse space-y-4">
           <div className="h-4 bg-gray-200 rounded w-3/4"></div>

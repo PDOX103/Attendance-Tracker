@@ -20,13 +20,13 @@ const Instructor_Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen">
       <Ins_Sidebar />
       <div className="flex-1 p-6">
         <div className="max-w-7xl mx-auto">
           {/* Dashboard Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Instructor Dashboard</h1>
+            <h1 className="text-black font-roboto text-lg font-bold">Instructor Dashboard</h1>
             <p className="text-gray-600 mt-2">Welcome back! Manage your courses and track student progress.</p>
           </div>
 
