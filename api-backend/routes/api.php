@@ -60,3 +60,6 @@ Route::get('/sessions/{sessionId}/attendance', [AttendanceController::class, 'ge
 Route::get('/courses/{courseId}/attendance-report', [AttendanceController::class, 'getStudentAttendanceReportByCourse']);
 
 Route::put('/users/{id}/role', [AdminController::class, 'updateUserRole']);
+
+
+Route::get('/students/{studentId}/attendance-summary', [AttendanceController::class, 'getStudentAttendanceSummary']);
